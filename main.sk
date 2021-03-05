@@ -5,7 +5,7 @@ command /skr [<text>]:
 			if arg 1 is set:
 				execute player command "sk reload %text-arg%"
 			else if arg 1 isn't set:
-				execute player command "sk reload anri" # sk reload all pour tout reload
+				execute player command "sk reload mylloon" # sk reload all pour tout reload
 		else:
 			send "&4Tu n'as pas la permission d'utiliser cette commande."
 
