@@ -89,7 +89,7 @@ command /delhome <text>:
             clear {home.%player's uuid%.%text-arg%}
             send "Maison &a%text-arg%&r supprimée."
         else:
-            send "&4Ce home n'existe pas"
+            send "&4Ce home n'existe pas."
             make player execute command "listhome"
 
 command /home [<text>]:
@@ -104,8 +104,15 @@ command /home [<text>]:
             send "&aTéléportation vers &9%{_name}% &a!"
             teleport player to {home.%player's uuid%.%{_name}%}
         else:
-            send "&4Le home '&c%{_name}%' &4n'existe pas"
+            send "&4Le home '&c%{_name}%' &4n'existe pas."
             make player execute command "listhome"
+
+on tab complete for "home":
+    if {home.%player's uuid%::*} is set:
+        set tab completions for position 1 to the first element of {home.%player's uuid%::*}
+        loop {home.%player's uuid%::*}:
+            if loop-value isn't the first element of {cards.%player%::*}:
+                add loop-value to tab completions
 
 command /listhome:
     description: Liste des tes maisons
