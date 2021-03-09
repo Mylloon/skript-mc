@@ -151,3 +151,9 @@ command rename <string>:
                 set the name of the player's tool to "§r%{_name}%"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
+
+command afk:
+    executable by: players
+    description: Annonce que tu vas afk
+    trigger:
+        broadcast "&cJe vais afk ! &8(&a%player's name%&8)"
