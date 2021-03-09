@@ -72,21 +72,32 @@ command sethome [<text>]:
             set {_name} to "maison"
         else:
             set {_name} to text-arg
-        remove {_name} from {home.%player's uuid%::*}
-        add {_name} to {home.%player's uuid%::*}
-        set {home.%player's uuid%.%{_name}%} to player's location
-        send "Ta maison '&a%{_name}%&r' est maintenant définie aux coordonnées &7%player's location%&r !"
+        if {home.%player's uuid%.%{_name}%} is set:
+            if text-arg isn't set:
+                set {_name} to ""
+            else:
+                set {_name} to "%{_name}% "
+            send "&4Cette maison existe déjà, &8/delhome %{_name}%&4pour la supprimer."
+        else:
+            remove {_name} from {home.%player's uuid%::*}
+            add {_name} to {home.%player's uuid%::*}
+            set {home.%player's uuid%.%{_name}%} to player's location
+            send "Ta maison '&a%{_name}%&r' est maintenant définie aux coordonnées &7%player's location%&r !"
 
-command delhome <text>:
+command delhome [<text>]:
     description: Supprime le tp vers ta maison
     executable by: players
     trigger:
-        if {home.%player's uuid%.%text-arg%} is set:
-            remove text-arg from {home.%player's uuid%::*}
-            clear {home.%player's uuid%.%text-arg%}
-            send "Maison &a%text-arg%&r supprimée."
+        if text-arg isn't set:
+            set {_name} to "maison"
         else:
-            send "&4Ce home n'existe pas."
+            set {_name} to text-arg
+        if {home.%player's uuid%.%{_name}%} is set:
+            remove {_name} from {home.%player's uuid%::*}
+            clear {home.%player's uuid%.%{_name}%}
+            send "Maison '&a%{_name}%&r' supprimée."
+        else:
+            send "&4Cette maison n'existe pas."
             make player execute command "listhome"
 
 command home [<text>]:
