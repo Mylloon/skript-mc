@@ -1,4 +1,4 @@
-command /skr [<text>]:
+command skr [<text>]:
     description: Reload de skripts
     trigger:
         if player is op:
@@ -9,8 +9,8 @@ command /skr [<text>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command /broadcast [<text>]:
-    description: Fais une annonce
+command broadcast [<text>]:
+    description: Fais une annonce (30s de cooldown)
     cooldown: 30 seconds	
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     aliases: /bc
@@ -23,7 +23,8 @@ command /broadcast [<text>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command /skull [<offline player>]:
+command skull [<offline player>]:
+    aliases: head, tete
     description: Te drop une tête d'un joueur
     executable by: players
     trigger:
@@ -37,25 +38,21 @@ command /skull [<offline player>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command /clearchat:
-    aliases: /cc
-    description: Efface l'historique du chat pour tout le monde
+command clearchat:
+    aliases: cc
+    description: Efface l'historique du chat pour tout le monde (1mn de cooldown)
     cooldown: 1 minute
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     trigger:
         if player is op:
             loop 150 times:
                 broadcast " "
-            broadcast "&6&m========================================"
-            broadcast " "
-            broadcast "&cLe Chat a été clear par &e&l%player%&c."
-            broadcast " "
-            broadcast "&6&m========================================"
+            broadcast "&cLe Chat a été clear par &e%player%&c."
             broadcast " "
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command /forceexecute <player> <text>:
+command forceexecute <player> <text>:
     aliases: /fe
     description: Force une personne à executer une commande
     trigger:
@@ -67,7 +64,7 @@ command /forceexecute <player> <text>:
 # on weather change to rain or thunder: # soleil pour toujours
 # 	cancel event
 
-command /sethome [<text>]:
+command sethome [<text>]:
     description: Défini un point de téléportation pour ta maison
     executable by: players
     trigger:
@@ -80,7 +77,7 @@ command /sethome [<text>]:
         set {home.%player's uuid%.%{_name}%} to player's location
         send "Ta maison '&a%{_name}%&r' est maintenant définie aux coordonnées &7%player's location%&r !"
 
-command /delhome <text>:
+command delhome <text>:
     description: Supprime le tp vers ta maison
     executable by: players
     trigger:
@@ -92,7 +89,7 @@ command /delhome <text>:
             send "&4Ce home n'existe pas."
             make player execute command "listhome"
 
-command /home [<text>]:
+command home [<text>]:
     description: Te téléportes à ta maison
     executable by: players
     trigger:
@@ -114,7 +111,7 @@ on tab complete for "home" and "delhome":
             if loop-value isn't the first element of {cards.%player%::*}:
                 add loop-value to tab completions
 
-command /listhome:
+command listhome:
     description: Liste des tes maisons
     executable by: players
     trigger:
@@ -125,7 +122,7 @@ command /listhome:
             replace all "and" with "et" in {_maisons}
             send "&aListe des tes maisons : %{_maisons}%"
 
-command /rename <string>:
+command rename <string>:
     description: Renomme l'item que tu as dans ta main
     executable by: players
     trigger:
