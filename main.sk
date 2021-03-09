@@ -82,7 +82,7 @@ command sethome [<text>]:
             remove {_name} from {home.%player's uuid%::*}
             add {_name} to {home.%player's uuid%::*}
             set {home.%player's uuid%.%{_name}%} to player's location
-            send "Ta maison '&a%{_name}%&r' est maintenant définie aux coordonnées &7%player's location%&r !"
+            send "Ta maison ""&a%{_name}%&r"" est maintenant définie aux coordonnées &7%player's location%&r !"
 
 command delhome [<text>]:
     description: Supprime le tp vers ta maison
@@ -95,7 +95,7 @@ command delhome [<text>]:
         if {home.%player's uuid%.%{_name}%} is set:
             remove {_name} from {home.%player's uuid%::*}
             clear {home.%player's uuid%.%{_name}%}
-            send "Maison '&a%{_name}%&r' supprimée."
+            send "Maison ""&a%{_name}%&r"" supprimée."
         else:
             send "&4Cette maison n'existe pas."
             make player execute command "listhome"
@@ -112,7 +112,7 @@ command home [<text>]:
             send "&aTéléportation vers &9%{_name}% &a!"
             teleport player to {home.%player's uuid%.%{_name}%}
         else:
-            send "&4Le home '&c%{_name}%' &4n'existe pas."
+            send "&4Le home ""&c%{_name}%"" &4n'existe pas."
             make player execute command "listhome"
 
 on tab complete for "home" and "delhome":
@@ -143,7 +143,7 @@ command rename <string>:
             else:
                 set {_name} to arg
                 replace all "&" with "§" in {_name}
-                send "&eL'item &r%player's tool%&e est renommé en &r%{_name}%&e."
+                send "&eL'item &r%player's tool%&e est renommé en ""&r%{_name}%&e""."
                 set the name of the player's tool to "§r%{_name}%"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
