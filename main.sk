@@ -107,7 +107,7 @@ command /home [<text>]:
             send "&4Le home '&c%{_name}%' &4n'existe pas."
             make player execute command "listhome"
 
-on tab complete for "home":
+on tab complete for "home" and "delhome":
     if {home.%player's uuid%::*} is set:
         set tab completions for position 1 to the first element of {home.%player's uuid%::*}
         loop {home.%player's uuid%::*}:
