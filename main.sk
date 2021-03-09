@@ -156,4 +156,4 @@ command afk:
     executable by: players
     description: Annonce que tu vas afk
     trigger:
-        broadcast "&cJe vais afk ! &8(&a%player's name%&8)"
+        broadcast "&a%player's name%&c est désormais afk !"
