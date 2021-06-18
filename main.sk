@@ -159,20 +159,26 @@ command afk:
     trigger:
         broadcast "&a%player's name%&c est désormais afk !"
 
-command gmc:
+command gmc [<player>]:
     executable by: players
     description: Change ton mode de jeu en créatif
     trigger:
         if player is op:
-            execute player command  "gamemode creative"
+            set {_player} to player
+            if arg-1 is set:
+                set {_player} to arg-1
+            execute {_player} command "gamemode creative"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command gms:
+command gms [<player>]:
     executable by: players
     description: Change ton mode de jeu en spectateur
     trigger:
         if player is op:
-            execute player command  "gamemode spectator"
+            set {_player} to player
+            if arg-1 is set:
+                set {_player} to arg-1
+            execute {_player} command "gamemode spectator"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
