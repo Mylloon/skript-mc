@@ -12,7 +12,7 @@ command skr [<text>]:
 
 command broadcast [<text>]:
     executable by: players, console
-    aliases: /bc
+    aliases: bc
     description: Fais une annonce (30s de cooldown)
     cooldown: 30 seconds	
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
@@ -58,7 +58,7 @@ command clearchat:
 
 command forceexecute <player> <text>:
     executable by: players, console
-    aliases: /fe
+    aliases: fe
     description: Force une personne à executer une commande
     trigger:
         if player is op:
