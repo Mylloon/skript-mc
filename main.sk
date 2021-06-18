@@ -3,9 +3,9 @@ command skr [<text>]:
     description: Reload de skripts
     trigger:
         if player is op:
-            if arg 1 is set:
-                execute player command "sk reload %text-arg%"
-            else if arg 1 isn't set:
+            if arg-1 is set:
+                execute player command "sk reload %arg-1%"
+            else if arg-1 isn't set:
                 execute player command "sk reload main" # sk reload all pour tout reload
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
@@ -18,9 +18,9 @@ command broadcast [<text>]:
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     trigger:
         if player is op:
-            if arg 1 is set:
-                broadcast "&a&lBREAKING NEWS &7» &6%arg 1%"
-                send all players title "&a&lBREAKING NEWS" with subtitle "&6%arg 1%" for 5 seconds
+            if arg-1 is set:
+                broadcast "&a&lBREAKING NEWS &7» &6%arg-1%"
+                send all players title "&a&lBREAKING NEWS" with subtitle "&6%arg-1%" for 5 seconds
             else:
                 send "&4Vous n'avez pas spécifier de texte."
         else:
@@ -32,12 +32,12 @@ command skull [<offline player>]:
     description: Te drop une tête d'un joueur
     trigger:
         if player is op:
-            if arg 1 isn't set:
+            if arg-1 isn't set:
                 give player's skull to player
                 send "&7Vous avez reçu la tête de : &6%player%"
-            if arg 1 is set:
-                give arg's skull to player
-                send "&7Vous avez reçu la tête de : &6%arg 1%"
+            if arg-1 is set:
+                give arg-1's skull to player
+                send "&7Vous avez reçu la tête de : &6%arg-1%"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
@@ -73,12 +73,12 @@ command sethome [<text>]:
     executable by: players
     description: Défini un point de téléportation pour ta maison
     trigger:
-        if text-arg isn't set:
+        if arg-1 isn't set:
             set {_name} to "maison"
         else:
-            set {_name} to text-arg
+            set {_name} to arg-1
         if {home.%player's uuid%.%{_name}%} is set:
-            if text-arg isn't set:
+            if arg-1 isn't set:
                 set {_name} to ""
             else:
                 set {_name} to "%{_name}% "
@@ -93,10 +93,10 @@ command delhome [<text>]:
     executable by: players
     description: Supprime le tp vers ta maison
     trigger:
-        if text-arg isn't set:
+        if arg-1 isn't set:
             set {_name} to "maison"
         else:
-            set {_name} to text-arg
+            set {_name} to arg-1
         if {home.%player's uuid%.%{_name}%} is set:
             remove {_name} from {home.%player's uuid%::*}
             clear {home.%player's uuid%.%{_name}%}
@@ -109,10 +109,10 @@ command home [<text>]:
     executable by: players
     description: Te téléportes à ta maison
     trigger:
-        if text-arg isn't set:
+        if arg-1 isn't set:
             set {_name} to "maison"
         else:
-            set {_name} to text-arg
+            set {_name} to arg-1
         if {home.%player's uuid%.%{_name}%} is set:
             send "&aTéléportation vers &9%{_name}% &a!"
             teleport player to {home.%player's uuid%.%{_name}%}
@@ -146,7 +146,7 @@ command rename <string>:
             if player's tool is air:
                 send "&4Tu dois avoir un item dans la main pour le renommer."
             else:
-                set {_name} to arg
+                set {_name} to arg-1
                 replace all "&" with "§" in {_name}
                 send "&eL'item &r%player's tool%&e est renommé en ""&r%{_name}%&e""."
                 set the name of the player's tool to "§r%{_name}%"
