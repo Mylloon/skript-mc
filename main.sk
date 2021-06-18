@@ -157,3 +157,21 @@ command afk:
     description: Annonce que tu vas afk
     trigger:
         broadcast "&a%player's name%&c est désormais afk !"
+
+command gmc:
+    executable by: players
+    description: Change ton mode de jeu en créatif
+    trigger:
+        if player is op:
+            execute player command  "gamemode creative"
+        else:
+            send "&4Tu n'as pas la permission d'utiliser cette commande."
+
+command gms:
+    executable by: players
+    description: Change ton mode de jeu en spectateur
+    trigger:
+        if player is op:
+            execute player command  "gamemode spectator"
+        else:
+            send "&4Tu n'as pas la permission d'utiliser cette commande."
