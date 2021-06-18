@@ -20,6 +20,7 @@ command broadcast [<text>]:
         if player is op:
             if arg 1 is set:
                 broadcast "&a&lBREAKING NEWS &7» &6%arg 1%"
+                send all players title "&a&lBREAKING NEWS" with subtitle "&6%arg 1%" for 5 seconds
             else:
                 send "&4Vous n'avez pas spécifier de texte."
         else:
