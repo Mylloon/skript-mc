@@ -32,12 +32,11 @@ command skull [<offline player>]:
     description: Te drop une tête d'un joueur
     trigger:
         if player is op:
-            if arg-1 isn't set:
-                give player's skull to player
-                send "&7Vous avez reçu la tête de : &6%player%"
+            set {_player} to player
             if arg-1 is set:
-                give arg-1's skull to player
-                send "&7Vous avez reçu la tête de : &6%arg-1%"
+                set {_player} to arg-1
+            give {_player}'s skull to player
+            send "&7Vous avez reçu la tête de : &6%{_player}%"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
