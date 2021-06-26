@@ -168,7 +168,7 @@ command gmc [<player>]: # met un joueur en créatif
                 stop
             execute console command "gamemode creative %{_player}%"
             loop all players:
-                if loop-player is op:
+                if loop-player is a op:
                     if loop-player is not {_player}:
                         send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en créatif." to loop-player
         else:
@@ -187,7 +187,7 @@ command gms [<player>]: # met un joueur en spectateur
                 stop
             execute console command "gamemode spectator %{_player}%"
             loop all players:
-                if loop-player is op:
+                if loop-player is a op:
                     if loop-player is not {_player}:
                         send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en spectateur." to loop-player
         else:
