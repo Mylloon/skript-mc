@@ -62,8 +62,8 @@ command forceexecute <player> <text>: # force un joueur à éxécuter une comman
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-# on weather change to rain or thunder: # soleil pour toujours
-# 	cancel event
+on weather change to rain or thunder: # soleil pour toujours
+    cancel event
 
 command sethome [<text>]: # défni un home
     executable by: players
