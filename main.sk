@@ -163,7 +163,14 @@ command gmc [<player>]: # met un joueur en créatif
             set {_player} to player
             if arg-1 is set:
                 set {_player} to arg-1
+            if gamemode of {_player} is creative:
+                send "&4Ce joueur est déjà en créatif."
+                stop
             execute console command "gamemode creative %{_player}%"
+            loop all players:
+                if loop-player is op:
+                    if loop-player is not {_player}:
+                        send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en créatif." to loop-player
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
@@ -175,7 +182,14 @@ command gms [<player>]: # met un joueur en spectateur
             set {_player} to player
             if arg-1 is set:
                 set {_player} to arg-1
+            if gamemode of {_player} is spectator:
+                send "&4Ce joueur est déjà en spectateur."
+                stop
             execute console command "gamemode spectator %{_player}%"
+            loop all players:
+                if loop-player is op:
+                    if loop-player is not {_player}:
+                        send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en spectateur." to loop-player
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
