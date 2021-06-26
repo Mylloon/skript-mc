@@ -195,4 +195,4 @@ on join: # joueur rejoins le serveur
     set join message to "%player% &aa rejoint le serveur !"
 
 on quit: # joueur quitte le serveur
-    set quit message to "%player% &aa quitté le serveur !"
+    set quit message to "%player% &ca quitté le serveur !"
