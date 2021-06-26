@@ -238,7 +238,6 @@ command killall: # tue toutes les entités
                         continue
                     if loop-entity's name is set:
                         continue
-                    add 1 to {_count2}
                     kill loop-entity
                     add 1 to {_count}
             send "Tu as tué %{_count}% entités."
