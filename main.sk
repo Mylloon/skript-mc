@@ -120,8 +120,7 @@ on tab complete for "home" and "delhome": # autocompletion des homes
     if {home.%player's uuid%::*} is set:
         set tab completions for position 1 to the first element of {home.%player's uuid%::*}
         loop {home.%player's uuid%::*}:
-            if loop-value isn't the first element of {cards.%player%::*}:
-                add loop-value to tab completions
+            add loop-value to tab completions
 
 command listhome: # liste tes homes
     executable by: players
