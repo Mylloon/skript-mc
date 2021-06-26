@@ -179,6 +179,15 @@ command gms [<player>]: # met un joueur en spectateur
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
+command top: # téléporte un joueur tout en haut
+    executable by: players
+    description: Te téléporte en haut du bloc au dessus de toi
+    trigger:
+        if player is op:
+            teleport player to location of highest block at location
+        else:
+            send "&4Tu n'as pas la permission d'utiliser cette commande."
+
 on first join: # premiere fois que le joueur rejoins le serveur
     set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
 
