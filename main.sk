@@ -2,13 +2,10 @@ command skr [<text>]: # recharge ce skript
     executable by: players, console
     description: Reload de skripts
     trigger:
-        if player is op:
-            if arg-1 is set:
-                execute player command "sk reload %arg-1%"
-            else if arg-1 isn't set:
-                execute player command "sk reload main" # sk reload all pour tout reload
-        else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+        if arg-1 is set:
+            execute player command "sk reload %arg-1%"
+        else if arg-1 isn't set:
+            execute player command "sk reload main" # sk reload all pour tout reload
 
 command broadcast [<text>]: # annonce
     executable by: players, console
