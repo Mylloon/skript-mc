@@ -316,3 +316,6 @@ command /reponse <text>: # réponse à un DM
             execute player command "msg %{dmReply.%uuid of player%}% %arg-1%"
         else:
             send "&4Tu n'as personne a qui répondre."
+
+on server ping:
+    set motd to "&e&kx &cServeur d'Anri &e&kx"
