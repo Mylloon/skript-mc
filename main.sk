@@ -1,4 +1,4 @@
-command skr [<text>]:
+command skr [<text>]: # recharge ce skript
     executable by: players, console
     description: Reload de skripts
     trigger:
@@ -10,7 +10,7 @@ command skr [<text>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command broadcast [<text>]:
+command broadcast [<text>]: # annonce
     executable by: players, console
     aliases: bc
     description: Fais une annonce (30s de cooldown)
@@ -26,7 +26,7 @@ command broadcast [<text>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command skull [<offline player>]:
+command skull [<offline player>]: # récupère la tête d'un joueur
     executable by: players
     aliases: head, tete
     description: Te drop une tête d'un joueur
@@ -40,7 +40,7 @@ command skull [<offline player>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command clearchat:
+command clearchat: # supprime l'historique du tchat
     executable by: players, console
     aliases: cc
     description: Efface l'historique du chat pour tout le monde (1mn de cooldown)
@@ -55,7 +55,7 @@ command clearchat:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command forceexecute <player> <text>:
+command forceexecute <player> <text>: # force un joueur à éxécuter une commande
     executable by: players, console
     aliases: fe
     description: Force une personne à executer une commande
@@ -68,7 +68,7 @@ command forceexecute <player> <text>:
 # on weather change to rain or thunder: # soleil pour toujours
 # 	cancel event
 
-command sethome [<text>]:
+command sethome [<text>]: # défni un home
     executable by: players
     description: Défini un point de téléportation pour ta maison
     trigger:
@@ -88,7 +88,7 @@ command sethome [<text>]:
             set {home.%player's uuid%.%{_name}%} to player's location
             send "Ta maison ""&a%{_name}%&r"" est maintenant définie aux coordonnées &7%player's location%&r !"
 
-command delhome [<text>]:
+command delhome [<text>]: # supprime un home
     executable by: players
     description: Supprime le tp vers ta maison
     trigger:
@@ -104,7 +104,7 @@ command delhome [<text>]:
             send "&4Cette maison n'existe pas."
             make player execute command "listhome"
 
-command home [<text>]:
+command home [<text>]: # téléportation vers home
     executable by: players
     description: Te téléportes à ta maison
     trigger:
@@ -119,14 +119,14 @@ command home [<text>]:
             send "&4Le home ""&c%{_name}%"" &4n'existe pas."
             make player execute command "listhome"
 
-on tab complete for "home" and "delhome":
+on tab complete for "home" and "delhome": # autocompletion des homes
     if {home.%player's uuid%::*} is set:
         set tab completions for position 1 to the first element of {home.%player's uuid%::*}
         loop {home.%player's uuid%::*}:
             if loop-value isn't the first element of {cards.%player%::*}:
                 add loop-value to tab completions
 
-command listhome:
+command listhome: # liste tes homes
     executable by: players
     description: Liste des tes maisons
     trigger:
@@ -137,7 +137,7 @@ command listhome:
             replace all "and" with "et" in {_maisons}
             send "&aListe des tes maisons : %{_maisons}%"
 
-command rename <string>:
+command rename <string>: # renomme un item
     executable by: players
     description: Renomme l'item que tu as dans ta main
     trigger:
@@ -152,13 +152,13 @@ command rename <string>:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command afk:
+command afk: # annonce d'afk
     executable by: players
     description: Annonce que tu vas afk
     trigger:
         broadcast "&a%player's name%&c est désormais afk !"
 
-command gmc [<player>]:
+command gmc [<player>]: # met un joueur en créatif
     executable by: players
     description: Change ton mode de jeu en créatif
     trigger:
@@ -170,7 +170,7 @@ command gmc [<player>]:
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command gms [<player>]:
+command gms [<player>]: # met un joueur en spectateur
     executable by: players
     description: Change ton mode de jeu en spectateur
     trigger:
