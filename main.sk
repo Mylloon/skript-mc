@@ -46,9 +46,9 @@ command clearchat: # supprime l'historique du tchat
     trigger:
         if player is op:
             loop 150 times:
-                broadcast " "
-            broadcast "&cLe Chat a été clear par &e%player%&c."
-            broadcast " "
+                broadcast " " in world of player
+            broadcast "&cLe Chat a été clear par &e%player%&c." in world of player
+            broadcast " " in world of player
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
@@ -153,7 +153,7 @@ command afk: # annonce d'afk
     executable by: players
     description: Annonce que tu vas afk
     trigger:
-        broadcast "&a%player's name%&c est désormais afk !"
+        broadcast "&a%player's name%&c est désormais afk !" in world of player
 
 command gmc [<player>]: # met un joueur en créatif
     executable by: players
@@ -210,5 +210,109 @@ on first join: # premiere fois que le joueur rejoins le serveur
 on join: # joueur rejoins le serveur
     set join message to "%player% &aa rejoint le serveur !"
 
-on quit: # joueur quitte le serveur
-    set quit message to "%player% &ca quitté le serveur !"
+on quit:
+    set quit message to "%player% &ca quitté le serveur !" # joueur quitte le serveur
+    delete {dmReply.%uuid of player%} # suppression de la réponse
+
+command killall: # tue toutes les entités
+    executable by: players
+    description: Tue toutes les entités du monde sauf joueur, porte-armure, flèche, tableau, cadre, bateau, villageois et entité avec un nom
+    trigger:
+        if player is op:
+            set {_count} to 0
+            loop twice:
+                loop all entities:
+                    if loop-entity is player:
+                        continue
+                    if loop-entity is armor stand:
+                        continue
+                    if loop-entity is arrows:
+                        continue
+                    if loop-entity is painting:
+                        continue
+                    if loop-entity is item frame:
+                        continue
+                    if loop-entity is boat:
+                        continue
+                    if loop-entity is villager:
+                        continue
+                    if loop-entity's name is set:
+                        continue
+                    add 1 to {_count2}
+                    kill loop-entity
+                    add 1 to {_count}
+            send "Tu as tué %{_count}% entités."
+        else:
+            send "&4Tu n'as pas la permission d'utiliser cette commande."
+
+command feed [<player>]: # remplie ta barre de nourriture
+    executable by: players
+    description: Remplie ta barre de nourriture
+    trigger:
+        if player is op:
+            set {_player} to player
+            set {_playerNAME} to player
+            if arg-1 is set:
+                set {_player} to arg-1
+            if player is {_player}:
+                set {_playerNAME} to "toi-même"
+            else:
+                send "Tu as nourris %{_player}%."
+            feed {_player}
+            send "Tu as été nourris. (par %{_playerNAME}%)" to {_player}
+        else:
+            send "&4Tu n'as pas la permission d'utiliser cette commande."
+
+on chat: # chat
+    cancel event
+    if {nick.%uuid of player%} is set:
+        set {_player} to {nick.%uuid of player%}
+    else:
+        set {_player} to player's name
+    broadcast "<%{_player}%&r> %message%" in world of player
+
+command /nick [<player>] <text>: # changement de pseudo
+    executable by: players
+    aliases: nickname
+    description: Change ton nom ou celui d'un autre joueur.
+    trigger:
+        if player is op:
+            set {_playerUUID} to uuid of player
+            set {_player} to player
+            set {_playerNAME} to player
+            if player-arg is set:
+                set {_playerUUID} to uuid of player-arg
+                set {_player} to player-arg
+            if player is {_player}:
+                set {_playerNAME} to "vous"
+            if text-arg is "off":
+                delete {nick.%{_playerUUID}%}
+                send "&6Tu n'as plus de surnom. (changé par %player%&6)" to {_player}
+            else:
+                if length of text-arg is greater than 15:
+                    send "&4Ce surnom est trop long."
+                else:
+                    set {nick.%{_playerUUID}%} to colored text-arg
+                    send "&6Ton surnom est désormais &r%{nick.%{_playerUUID}%}%&6. (changé par %{_playerNAME}%&6)" to {_player}
+        else:
+            send "&4Tu n'as pas la permission d'utiliser cette commande."
+
+command /msg <player> <text>: # DM
+    executable by: players
+    aliases: whisper, w, tell, t
+    description: Envoie un message privé à un joueur.
+    trigger:
+        send "&8[Moi -> %arg 1%&8]&7 %arg 2%" to player
+        send "&8[%player%&8 -> Moi] &b%arg 2%" to arg-1
+        set {dmReply.%uuid of player%} to arg-1
+        set {dmReply.%uuid of arg-1%} to player
+
+command /reponse <text>: # réponse à un DM
+    executable by: players
+    aliases: rep, r
+    description: Envoie un réponse à un joueur.
+    trigger:
+        if {dmReply.%uuid of player%} is set:
+            execute player command "msg %{dmReply.%uuid of player%}% %arg-1%"
+        else:
+            send "&4Tu n'as personne a qui répondre."
