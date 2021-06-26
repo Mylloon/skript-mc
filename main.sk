@@ -178,3 +178,12 @@ command gms [<player>]: # met un joueur en spectateur
             execute {_player} command "gamemode spectator"
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
+
+on first join:
+    set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
+
+on join:
+    set join message to "%player% &aa rejoint le serveur !"
+
+on quit:
+    set quit message to "%player% &aa quitté le serveur !"
