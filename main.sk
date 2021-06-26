@@ -67,7 +67,7 @@ on weather change to rain or thunder: # soleil pour toujours
 
 command sethome [<text>]: # défni un home
     executable by: players
-    description: Défini un point de téléportation pour ta maison
+    description: Défini un point de téléportation
     trigger:
         if arg-1 isn't set:
             set {_name} to "maison"
@@ -87,7 +87,7 @@ command sethome [<text>]: # défni un home
 
 command delhome [<text>]: # supprime un home
     executable by: players
-    description: Supprime le tp vers ta maison
+    description: Supprime un point de téléportation
     trigger:
         if arg-1 isn't set:
             set {_name} to "maison"
@@ -103,7 +103,7 @@ command delhome [<text>]: # supprime un home
 
 command home [<text>]: # téléportation vers home
     executable by: players
-    description: Te téléportes à ta maison
+    description: Te téléportes vers un point de téléportation
     trigger:
         if arg-1 isn't set:
             set {_name} to "maison"
@@ -125,7 +125,7 @@ on tab complete for "home" and "delhome": # autocompletion des homes
 
 command listhome: # liste tes homes
     executable by: players
-    description: Liste des tes maisons
+    description: Liste des tes points de téléportations
     trigger:
         if {home.%player's uuid%::*} isn't set:
             send "&4Vous n'avez pas de maisons."
@@ -157,7 +157,7 @@ command afk: # annonce d'afk
 
 command gmc [<player>]: # met un joueur en créatif
     executable by: players
-    description: Change ton mode de jeu en créatif
+    description: Change le mode de jeu en créatif
     trigger:
         if player is op:
             set {_player} to player
@@ -271,10 +271,10 @@ on chat: # chat
         set {_player} to player's name
     broadcast "<%{_player}%&r> %message%" in world of player
 
-command /nick [<player>] <text>: # changement de pseudo
+command /nickname [<player>] <text>: # changement de pseudo
     executable by: players
-    aliases: nickname
-    description: Change ton nom ou celui d'un autre joueur.
+    aliases: nick
+    description: Change ton nom ou celui d'un autre joueur. (max 15 charactères)
     trigger:
         if player is op:
             set {_playerUUID} to uuid of player
