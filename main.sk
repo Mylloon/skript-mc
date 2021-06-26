@@ -318,4 +318,4 @@ command /reponse <text>: # réponse à un DM
             send "&4Tu n'as personne a qui répondre."
 
 on server ping:
-    set motd to "&e&kx &cServeur d'Anri &e&kx"
+    set motd to "&e&k|| &cServeur d'Anri &e&k||"
