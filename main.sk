@@ -179,11 +179,11 @@ command gms [<player>]: # met un joueur en spectateur
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-on first join:
+on first join: # premiere fois que le joueur rejoins le serveur
     set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
 
-on join:
+on join: # joueur rejoins le serveur
     set join message to "%player% &aa rejoint le serveur !"
 
-on quit:
+on quit: # joueur quitte le serveur
     set quit message to "%player% &aa quitté le serveur !"
