@@ -366,9 +366,9 @@ command deacoudre: # dé à coudre
             send {@errorMessage}
 
 every 0.5 second in "world": # dé à coudre
+    if {thimble} is not true:
+        stop
     loop all players:
-        if {thimble} is not true:
-            continue
         set action bar of loop-player to "&dEn partie de &lDé à coudre&r&d."
         if block at loop-player is water:
             set {_xLocationBlock1} to difference between X-location of block at loop-player and 103.5
