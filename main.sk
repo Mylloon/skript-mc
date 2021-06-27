@@ -1,4 +1,5 @@
 options:
+    serverName: "Serveur d'Anri"
     errorMessage: "&4Tu n'as pas la permission d'utiliser cette commande."
 
 function sendToOperators(player: player, message: text):
@@ -214,6 +215,7 @@ on first join: # premiere fois que le joueur rejoins le serveur
 
 on join: # joueur rejoins le serveur
     set join message to "%player% &aa rejoint le serveur !"
+    set {playerIP.%ip of player%} to player
 
 on quit:
     set quit message to "%player% &ca quitté le serveur !" # joueur quitte le serveur
@@ -322,16 +324,24 @@ command reponse <text>: # réponse à un DM
         else:
             send "&4Tu n'as personne a qui répondre."
 
-on server ping: # motd
-    set motd to "&e&k|| &cServeur d'Anri &e&k||"
+on server list ping: # motd
+    if {playerIP.%ip%} is set:
+        set motd to "&e&k||| &cSalut &a%{playerIP.%ip%}%&c, reconnecte-toi ! &e&k|||"
+    else:
+        set {_serverName} to {@serverName}
+        set motd to "&e&k||| &c%{_serverName}% &e&k|||"
+    set max players count to (number of all players + 1)
+    if max players count > {_playerCount}:
+        set max players count to (number of all players + 1)
 
-every 1 second in "world": # affiche le block proche de toi
+every 1 second in "world":
     loop all players:
-        if {blockNear.%uuid of loop-player%} is not true:
-            continue
-        loop all blocks in radius 3 of loop-player:
-            if loop-block is target block of loop-player:
-                set action bar of loop-player to "&a%target block of loop-player%"
+        if {blockNear.%uuid of loop-player%} is true: # affiche le block proche de toi
+            loop all blocks in radius 3 of loop-player:
+                if loop-block is target block of loop-player:
+                    set action bar of loop-player to "&a%target block of loop-player%"
+        set {_serverName} to {@serverName}
+        set tab header to  "&a%{_serverName}%" and footer to "&e%number of all players% joueurs connectés\n&9%ping of loop-player% ms de latence" for loop-player
 
 command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
     executable by: players
