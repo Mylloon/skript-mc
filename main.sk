@@ -397,15 +397,18 @@ command casque:
     description: Équipe l'objet dans ta main principale sur ta tête.
     trigger:
         if player is op:
-            if tool of player is air:
-                send "&4Tu n'as rien dans tes mains."
-                stop
-            set {_item} to air
             if helmet of player is not air:
                 set {_item} to helmet of player
+            if tool of player is air:
+                if {_item} is set:
+                    send "&aItem retiré !"
+                else:
+                    send "&4Tu n'as rien dans tes mains."
+                    stop
             set helmet of player to tool of player
             remove tool of player from inventory of player
             add {_item} to inventory of player
-            send "&aItem équippé !"
+            if helmet of player is not air:
+                send "&aItem équippé !"
         else:
             send {@errorMessage}
