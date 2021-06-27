@@ -1,3 +1,6 @@
+options:
+    errorMessage: "&4Tu n'as pas la permission d'utiliser cette commande."
+
 command skr [<text>]: # recharge ce skript
     executable by: players, console
     description: Reload de skripts.
@@ -21,7 +24,7 @@ command broadcast [<text>]: # annonce
             else:
                 send "&4Vous n'avez pas spécifier de texte."
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command skull [<offline player>]: # récupère la tête d'un joueur
     executable by: players
@@ -35,7 +38,7 @@ command skull [<offline player>]: # récupère la tête d'un joueur
             give {_player}'s skull to player
             send "&7Vous avez reçu la tête de : &6%{_player}%"
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command clearchat: # supprime l'historique du tchat
     executable by: players, console
@@ -50,7 +53,7 @@ command clearchat: # supprime l'historique du tchat
             broadcast "&cLe Chat a été clear par &e%player%&c." in world of player
             broadcast " " in world of player
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command forceexecute <player> <text>: # force un joueur à éxécuter une commande
     executable by: players, console
@@ -60,7 +63,7 @@ command forceexecute <player> <text>: # force un joueur à éxécuter une comman
         if player is op:
             execute arg-1 command arg-2
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 on weather change to rain or thunder: # soleil pour toujours
     cancel event
@@ -130,8 +133,9 @@ command listhome: # liste tes homes
             send "&4Vous n'avez pas de maisons."
         else:
             set {_maisons} to "%{home.%player's uuid%::*}%"
-            replace all "and" with "et" in {_maisons}
-            send "&aListe des tes maisons : %{_maisons}%"
+            replace all "and" with "&7et&3" in {_maisons}
+            replace all "," with "&7,&3" in {_maisons}
+            send "&aListe des tes maisons : &3%{_maisons}%&7."
 
 command rename <text>: # renomme un item
     executable by: players
@@ -146,7 +150,7 @@ command rename <text>: # renomme un item
                 send "&eL'item &r%player's tool%&e est renommé en ""&r%{_name}%&e""."
                 set the name of the player's tool to "§r%{_name}%"
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command afk: # annonce d'afk
     executable by: players
@@ -172,7 +176,7 @@ command gmc [<player>]: # met un joueur en créatif
                     if loop-player is not {_player}:
                         send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en créatif." to loop-player
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command gms [<player>]: # met un joueur en spectateur
     executable by: players
@@ -192,7 +196,7 @@ command gms [<player>]: # met un joueur en spectateur
                     if loop-player is not {_player}:
                         send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en spectateur." to loop-player
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command top: # téléporte un joueur tout en haut
     executable by: players
@@ -201,7 +205,7 @@ command top: # téléporte un joueur tout en haut
         if player is op:
             teleport player to location of highest block at location
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 on first join: # premiere fois que le joueur rejoins le serveur
     set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
@@ -241,7 +245,7 @@ command killall: # tue toutes les entités
                     add 1 to {_count}
             send "Tu as tué %{_count}% entités."
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command feed [<player>]: # remplie barre de nourriture
     executable by: players
@@ -259,7 +263,7 @@ command feed [<player>]: # remplie barre de nourriture
             feed {_player}
             send "Tu as été nourris. (par %{_playerNAME}%)" to {_player}
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 on chat: # chat
     cancel event
@@ -293,7 +297,7 @@ command nickname [<player>] <text>: # changement de pseudo
                     set {nick.%{_playerUUID}%} to colored text-arg
                     send "&6Ton surnom est désormais &r%{nick.%{_playerUUID}%}%&6. (changé par %{_playerNAME}%&6)" to {_player}
         else:
-            send "&4Tu n'as pas la permission d'utiliser cette commande."
+            send {@errorMessage}
 
 command msg <player> <text>: # DM
     executable by: players
