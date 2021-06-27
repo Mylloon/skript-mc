@@ -315,5 +315,24 @@ command /reponse <text>: # réponse à un DM
         else:
             send "&4Tu n'as personne a qui répondre."
 
-on server ping:
+on server ping: # motd
     set motd to "&e&k|| &cServeur d'Anri &e&k||"
+
+every 1 second in "world": # affiche le block proche de toi
+    loop all players:
+        if {blockNear.%uuid of loop-player%} is not true:
+            continue
+        loop all blocks in radius 3 of loop-player:
+            if loop-block is target block of loop-player:
+                set action bar of loop-player to "&a%target block of loop-player%"
+
+command /quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
+    executable by: players
+    description: T'affiche le bloc en face de toi (switch off/on)
+    trigger:
+        if {blockNear.%uuid of player%} is set:
+            delete {blockNear.%uuid of player%}
+            send "&cTu ne verras désormais plus le nom du bloc proche de toi."
+        else:
+            set {blockNear.%uuid of player%} to true
+            send "&aTu verras désormais le nom du bloc proche de toi."
