@@ -30,6 +30,7 @@ command broadcast [<text>]: # annonce
             else:
                 send "&4Vous n'avez pas spécifier de texte."
         else:
+            cancel command cooldown
             send {@errorMessage}
 
 command skull [<offline player>]: # récupère la tête d'un joueur
@@ -59,6 +60,7 @@ command clearchat: # supprime l'historique du tchat
             broadcast "&cLe Chat a été clear par &e%player%&c." in world of player
             broadcast " " in world of player
         else:
+            cancel command cooldown
             send {@errorMessage}
 
 command forceexecute <player> <text>: # force un joueur à éxécuter une commande
