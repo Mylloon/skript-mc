@@ -401,7 +401,7 @@ command casque:
                 set {_item} to helmet of player
             if tool of player is air:
                 if {_item} is set:
-                    send "&aItem retiré !"
+                    send "&cItem retiré !"
                 else:
                     send "&4Tu n'as rien dans tes mains."
                     stop
