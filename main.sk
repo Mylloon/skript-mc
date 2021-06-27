@@ -1,6 +1,6 @@
 command skr [<text>]: # recharge ce skript
     executable by: players, console
-    description: Reload de skripts
+    description: Reload de skripts.
     trigger:
         if arg-1 is set:
             execute player command "sk reload %arg-1%"
@@ -10,7 +10,7 @@ command skr [<text>]: # recharge ce skript
 command broadcast [<text>]: # annonce
     executable by: players, console
     aliases: bc
-    description: Fais une annonce (30s de cooldown)
+    description: Fais une annonce à tout le monde. (30s de cooldown)
     cooldown: 30 seconds	
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     trigger:
@@ -26,7 +26,7 @@ command broadcast [<text>]: # annonce
 command skull [<offline player>]: # récupère la tête d'un joueur
     executable by: players
     aliases: head, tete
-    description: Te drop une tête d'un joueur
+    description: Te drop une tête d'un joueur.
     trigger:
         if player is op:
             set {_player} to player
@@ -40,7 +40,7 @@ command skull [<offline player>]: # récupère la tête d'un joueur
 command clearchat: # supprime l'historique du tchat
     executable by: players, console
     aliases: cc
-    description: Efface l'historique du chat pour tout le monde (1mn de cooldown)
+    description: Efface l'historique du chat dans ton monde. (1mn de cooldown)
     cooldown: 1 minute
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     trigger:
@@ -55,7 +55,7 @@ command clearchat: # supprime l'historique du tchat
 command forceexecute <player> <text>: # force un joueur à éxécuter une commande
     executable by: players, console
     aliases: fe
-    description: Force une personne à executer une commande
+    description: Force une personne à executer une commande.
     trigger:
         if player is op:
             execute arg-1 command arg-2
@@ -67,7 +67,7 @@ on weather change to rain or thunder: # soleil pour toujours
 
 command sethome [<text>]: # défni un home
     executable by: players
-    description: Défini un point de téléportation
+    description: Défini un point de téléportation.
     trigger:
         if arg-1 isn't set:
             set {_name} to "maison"
@@ -87,7 +87,7 @@ command sethome [<text>]: # défni un home
 
 command delhome [<text>]: # supprime un home
     executable by: players
-    description: Supprime un point de téléportation
+    description: Supprime un point de téléportation.
     trigger:
         if arg-1 isn't set:
             set {_name} to "maison"
@@ -103,7 +103,7 @@ command delhome [<text>]: # supprime un home
 
 command home [<text>]: # téléportation vers home
     executable by: players
-    description: Te téléportes vers un point de téléportation
+    description: Te téléportes vers un point de téléportation.
     trigger:
         if arg-1 isn't set:
             set {_name} to "maison"
@@ -124,7 +124,7 @@ on tab complete for "home" and "delhome": # autocompletion des homes
 
 command listhome: # liste tes homes
     executable by: players
-    description: Liste des tes points de téléportations
+    description: Liste des tes points de téléportations.
     trigger:
         if {home.%player's uuid%::*} isn't set:
             send "&4Vous n'avez pas de maisons."
@@ -135,7 +135,7 @@ command listhome: # liste tes homes
 
 command rename <text>: # renomme un item
     executable by: players
-    description: Renomme l'item que tu as dans ta main
+    description: Renomme l'item que tu as dans ta main.
     trigger:
         if player is op:
             if player's tool is air:
@@ -150,13 +150,13 @@ command rename <text>: # renomme un item
 
 command afk: # annonce d'afk
     executable by: players
-    description: Annonce que tu vas afk
+    description: Annonce que tu vas afk.
     trigger:
         broadcast "&a%player's name%&c est désormais afk !" in world of player
 
 command gmc [<player>]: # met un joueur en créatif
     executable by: players
-    description: Change le mode de jeu en créatif
+    description: Change le mode de jeu d'un joueur en créatif.
     trigger:
         if player is op:
             set {_player} to player
@@ -176,7 +176,7 @@ command gmc [<player>]: # met un joueur en créatif
 
 command gms [<player>]: # met un joueur en spectateur
     executable by: players
-    description: Change ton mode de jeu en spectateur
+    description: Change ton mode de jeu d'un joueur en spectateur
     trigger:
         if player is op:
             set {_player} to player
@@ -196,7 +196,7 @@ command gms [<player>]: # met un joueur en spectateur
 
 command top: # téléporte un joueur tout en haut
     executable by: players
-    description: Te téléporte en haut du bloc au dessus de toi
+    description: Te téléporte sur le bloc le plus haut.
     trigger:
         if player is op:
             teleport player to location of highest block at location
@@ -215,7 +215,7 @@ on quit:
 
 command killall: # tue toutes les entités
     executable by: players
-    description: Tue toutes les entités du monde sauf joueur, porte-armure, flèche, tableau, cadre, bateau, villageois et entité avec un nom
+    description: Tue toutes les entités du monde sauf joueur, porte-armure, flèche, tableau, cadre, bateau, villageois et entité avec un nom.
     trigger:
         if player is op:
             set {_count} to 0
@@ -243,9 +243,9 @@ command killall: # tue toutes les entités
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command feed [<player>]: # remplie ta barre de nourriture
+command feed [<player>]: # remplie barre de nourriture
     executable by: players
-    description: Remplie ta barre de nourriture
+    description: Remplie la barre de nourriture d'un joueur.
     trigger:
         if player is op:
             set {_player} to player
@@ -269,7 +269,7 @@ on chat: # chat
         set {_player} to player's name
     broadcast "<%{_player}%&r> %colored message%" in world of player
 
-command /nickname [<player>] <text>: # changement de pseudo
+command nickname [<player>] <text>: # changement de pseudo
     executable by: players
     aliases: nick
     description: Change ton nom ou celui d'un autre joueur. (max 15 charactères)
@@ -295,7 +295,7 @@ command /nickname [<player>] <text>: # changement de pseudo
         else:
             send "&4Tu n'as pas la permission d'utiliser cette commande."
 
-command /msg <player> <text>: # DM
+command msg <player> <text>: # DM
     executable by: players
     aliases: whisper, w, tell, t
     description: Envoie un message privé à un joueur.
@@ -305,7 +305,7 @@ command /msg <player> <text>: # DM
         set {dmReply.%uuid of player%} to arg-1
         set {dmReply.%uuid of arg-1%} to player
 
-command /reponse <text>: # réponse à un DM
+command reponse <text>: # réponse à un DM
     executable by: players
     aliases: rep, r
     description: Envoie un réponse à un joueur.
@@ -326,9 +326,9 @@ every 1 second in "world": # affiche le block proche de toi
             if loop-block is target block of loop-player:
                 set action bar of loop-player to "&a%target block of loop-player%"
 
-command /quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
+command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
     executable by: players
-    description: T'affiche le bloc en face de toi (switch off/on)
+    description: T'affiches le bloc en face de toi. (switch off/on)
     trigger:
         if {blockNear.%uuid of player%} is set:
             delete {blockNear.%uuid of player%}
