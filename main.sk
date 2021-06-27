@@ -16,8 +16,8 @@ command broadcast [<text>]: # annonce
     trigger:
         if player is op:
             if arg-1 is set:
-                broadcast "&a&lBREAKING NEWS &7» &6%arg-1%"
-                send all players title "&a&lBREAKING NEWS" with subtitle "&6%arg-1%" for 5 seconds
+                broadcast "&a&lBREAKING NEWS &7» &6%colored text-arg%"
+                send all players title "&a&lBREAKING NEWS" with subtitle "&6%colored text-arg%" for 5 seconds
             else:
                 send "&4Vous n'avez pas spécifier de texte."
         else:
@@ -133,7 +133,7 @@ command listhome: # liste tes homes
             replace all "and" with "et" in {_maisons}
             send "&aListe des tes maisons : %{_maisons}%"
 
-command rename <string>: # renomme un item
+command rename <text>: # renomme un item
     executable by: players
     description: Renomme l'item que tu as dans ta main
     trigger:
@@ -141,7 +141,7 @@ command rename <string>: # renomme un item
             if player's tool is air:
                 send "&4Tu dois avoir un item dans la main pour le renommer."
             else:
-                set {_name} to arg-1
+                set {_name} to colored text-arg
                 replace all "&" with "§" in {_name}
                 send "&eL'item &r%player's tool%&e est renommé en ""&r%{_name}%&e""."
                 set the name of the player's tool to "§r%{_name}%"
@@ -267,7 +267,7 @@ on chat: # chat
         set {_player} to {nick.%uuid of player%}
     else:
         set {_player} to player's name
-    broadcast "<%{_player}%&r> %message%" in world of player
+    broadcast "<%{_player}%&r> %colored message%" in world of player
 
 command /nickname [<player>] <text>: # changement de pseudo
     executable by: players
@@ -300,8 +300,8 @@ command /msg <player> <text>: # DM
     aliases: whisper, w, tell, t
     description: Envoie un message privé à un joueur.
     trigger:
-        send "&8[Moi -> %arg 1%&8]&7 %arg 2%" to player
-        send "&8[%player%&8 -> Moi] &b%arg 2%" to arg-1
+        send "&8[Moi -> %arg-1%&8]&7 %colored text-arg%" to player
+        send "&8[%player%&8 -> Moi] &b%colored text-arg%" to arg-1
         set {dmReply.%uuid of player%} to arg-1
         set {dmReply.%uuid of arg-1%} to player
 
