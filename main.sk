@@ -1,6 +1,12 @@
 options:
     errorMessage: "&4Tu n'as pas la permission d'utiliser cette commande."
 
+function sendToOperators(player: player, message: text):
+    loop all players:
+        if loop-player is a op:
+            if loop-player is not {_player}:
+                send {_message} to loop-player
+
 command skr [<text>]: # recharge ce skript
     executable by: players, console
     description: Reload de skripts.
@@ -171,10 +177,7 @@ command gmc [<player>]: # met un joueur en créatif
                 stop
             set gamemode of {_player} to creative
             send "%player% a changé ton mode de jeu en créatif." to {_player}
-            loop all players:
-                if loop-player is a op:
-                    if loop-player is not {_player}:
-                        send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en créatif." to loop-player
+            sendToOperators({_player}, "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en créatif.")
         else:
             send {@errorMessage}
 
@@ -191,10 +194,7 @@ command gms [<player>]: # met un joueur en spectateur
                 stop
             set gamemode of {_player} to spectator
             send "%player% a changé ton mode de jeu en spectateur." to {_player}
-            loop all players:
-                if loop-player is a op:
-                    if loop-player is not {_player}:
-                        send "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en spectateur." to loop-player
+            sendToOperators({_player}, "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en spectateur.")
         else:
             send {@errorMessage}
 
@@ -244,6 +244,7 @@ command killall: # tue toutes les entités
                     kill loop-entity
                     add 1 to {_count}
             send "Tu as tué %{_count}% entités."
+            sendToOperators(player, "&7%{player}%&7 as tué %{_count}%&7 entités.")
         else:
             send {@errorMessage}
 
@@ -366,7 +367,7 @@ command deacoudre: # dé à coudre
 
 every 0.5 second in "world": # dé à coudre
     loop all players:
-        if {thimble} is not true: # dé à coudre
+        if {thimble} is not true:
             continue
         set action bar of loop-player to "&dEn partie de &lDé à coudre&r&d."
         if block at loop-player is water:
