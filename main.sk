@@ -45,7 +45,7 @@ command clearchat: # supprime l'historique du tchat
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     trigger:
         if player is op:
-            loop 150 times:
+            loop 98 times:
                 broadcast " " in world of player
             broadcast "&cLe Chat a été clear par &e%player%&c." in world of player
             broadcast " " in world of player
