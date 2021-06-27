@@ -355,11 +355,12 @@ command deacoudre: # dé à coudre
             else:
                 set {thimble} to true
                 broadcast "&aDémarrage de la partie de dé à coudre !"
-                teleport all players to location at 101.5, 83, -314 in world "world"
-                set gamemode of all players to survival
-                feed all players
-                heal all players
-                cure all players
+                loop all players:
+                    teleport loop-player to location at 101.5, 83, -314 in world "world"
+                    set gamemode of loop-player to survival
+                    feed loop-player
+                    heal loop-player
+                    cure loop-player
         else:
             send {@errorMessage}
 
@@ -372,16 +373,14 @@ every 0.5 second in "world": # dé à coudre
         if block at loop-player is water:
             set {_xLocationBlock1} to difference between X-location of block at loop-player and 103.5
             set {_xLocationBlock2} to difference between X-location of block at loop-player and 99.5
-            if {_xLocationBlock1} and {_xLocationBlock2} <= 0:
+            set {_zLocationBlock1} to difference between Z-location of block at loop-player and -312.5
+            set {_zLocationBlock2} to difference between Z-location of block at loop-player and -304.5
+            set {_yLocationBlock} to difference between Y-location of block at loop-player and 57.5
+            if {_xLocationBlock1} and {_xLocationBlock2} and {_zLocationBlock1} and {_zLocationBlock2} <= 0:
                 continue
             if {_xLocationBlock1} and {_xLocationBlock2} >= 4:
                 continue
-            set {_yLocationBlock} to difference between Y-location of block at loop-player and 57.5
             if {_yLocationBlock} != 0:
-                continue
-            set {_zLocationBlock1} to difference between Z-location of block at loop-player and -312.5
-            set {_zLocationBlock2} to difference between Z-location of block at loop-player and -304.5
-            if {_zLocationBlock1} and {_zLocationBlock2} <= 0:
                 continue
             if {_zLocationBlock1} and {_zLocationBlock2} >= 8:
                 continue
