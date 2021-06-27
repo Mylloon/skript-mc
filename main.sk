@@ -360,7 +360,6 @@ command deacoudre: # dé à coudre
                 feed all players
                 heal all players
                 cure all players
-
         else:
             send {@errorMessage}
 
@@ -373,20 +372,15 @@ every 0.5 second in "world": # dé à coudre
         if block at loop-player is water:
             set {_xLocationBlock1} to difference between X-location of block at loop-player and 103.5
             set {_xLocationBlock2} to difference between X-location of block at loop-player and 99.5
-
-            set {_yLocationBlock} to difference between Y-location of block at loop-player and 57.5
-
-            set {_zLocationBlock1} to difference between Z-location of block at loop-player and -312.5
-            set {_zLocationBlock2} to difference between Z-location of block at loop-player and -304.5
-
             if {_xLocationBlock1} and {_xLocationBlock2} <= 0:
                 continue
             if {_xLocationBlock1} and {_xLocationBlock2} >= 4:
                 continue
-
+            set {_yLocationBlock} to difference between Y-location of block at loop-player and 57.5
             if {_yLocationBlock} != 0:
                 continue
-
+            set {_zLocationBlock1} to difference between Z-location of block at loop-player and -312.5
+            set {_zLocationBlock2} to difference between Z-location of block at loop-player and -304.5
             if {_zLocationBlock1} and {_zLocationBlock2} <= 0:
                 continue
             if {_zLocationBlock1} and {_zLocationBlock2} >= 8:
