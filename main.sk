@@ -357,13 +357,12 @@ command deacoudre: # dé à coudre
                 broadcast "&aDémarrage de la partie de dé à coudre !"
                 loop all players:
                     teleport loop-player to location at 101.5, 83, -314 in world "world"
-                    set gamemode of loop-player to survival
+                    set gamemode of loop-player to adventure
                     feed loop-player
                     heal loop-player
                     cure loop-player
         else:
             send {@errorMessage}
-
 
 every 0.5 second in "world": # dé à coudre
     loop all players:
@@ -386,3 +385,5 @@ every 0.5 second in "world": # dé à coudre
                 continue
             set block at loop-player to wool
             teleport loop-player to location at 101.5, 83, -314 in world "world"
+            feed loop-player
+            heal loop-player
