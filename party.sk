@@ -75,7 +75,8 @@ command party [<player>] [<text>]: # commande party
                 set {_list} to "%{party.list::*}%"
                 replace all "and" with "&7et&3" in {_list}
                 replace all "," with "&7,&3" in {_list}
-                send "Personne.s dans ta partie : &3%{_list}%&7."
+                replace all "%{party.creator}%" with "&l%{party.creator}%&r&3" in {_list}
+                send "Dans la partie : &3%{_list}%&7."
             else:
                 send {@pasDePartie}
 
