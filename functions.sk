@@ -1,12 +1,12 @@
-function sendToOperators(player: player, message: text):
-    loop all players:
-        if loop-player is a op:
-            if loop-player is not {_player}:
-                send {_message} to loop-player
-
-function option(option: text) :: text:
+function option(option: text) :: text: # options
     if {_option} is "serverName":
         set {_resultat} to "Serveur d'Anri"
     if {_option} is "errorMessage":
         set {_resultat} to "&4Tu n'as pas la permission d'utiliser cette commande."
     return {_resultat}
+
+function sendToOperators(player: player, message: text): # envoie message aux opérateurs (exclu le player s'il est OP aussi)
+    loop all players:
+        if loop-player is a op:
+            if loop-player is not {_player}:
+                send {_message} to loop-player

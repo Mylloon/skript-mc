@@ -1,4 +1,4 @@
-command deacoudre: # dé à coudre
+command deacoudre: # lancement de la partie
     executable by: players
     description: Lance une partie de dé à coudre.
     trigger:
@@ -21,7 +21,7 @@ command deacoudre: # dé à coudre
         else:
             send option("errorMessage")
 
-every 0.5 second in "world": # dé à coudre
+every 0.5 second in "world": # pose du bloc et téléporatation
     if {thimble} is not true:
         stop
     loop all players:

@@ -1,4 +1,4 @@
-command skr [<text>]: # recharge ce skript
+command skr [<text>]: # reload skript
     executable by: players, console
     description: Reload de skripts.
     trigger:
@@ -55,7 +55,7 @@ command clearchat: # supprime l'historique du tchat
             cancel command cooldown
             send option("errorMessage")
 
-command forceexecute <player> <text>: # force un joueur à éxécuter une commande
+command forceexecute <player> <text>: # force un joueur à exécuter une commande
     executable by: players, console
     aliases: fe
     description: Force une personne à executer une commande.
@@ -68,7 +68,7 @@ command forceexecute <player> <text>: # force un joueur à éxécuter une comman
 on weather change to rain or thunder: # soleil pour toujours
     cancel event
 
-command rename <text>: # renomme un item
+command rename <text>: # renomme l'item dans la main du joueur
     executable by: players
     description: Renomme l'item que tu as dans ta main.
     trigger:
@@ -132,10 +132,10 @@ command top: # téléporte un joueur tout en haut
         else:
             send option("errorMessage")
 
-on first join: # premiere fois que le joueur rejoins le serveur
+on first join: # premiere fois que le joueur rejoint le serveur
     set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
 
-on join: # joueur rejoins le serveur
+on join: # joueur rejoint le serveur
     set join message to "%player% &aa rejoint le serveur !"
     set {playerIP.%ip of player%} to player
 
@@ -143,7 +143,7 @@ on quit:
     set quit message to "%player% &ca quitté le serveur !" # joueur quitte le serveur
     delete {dmReply.%uuid of player%} # suppression de la réponse
 
-command killall: # tue toutes les entités
+command killall: # tue toutes les entités sauf exeptions
     executable by: players
     description: Tue toutes les entités du monde sauf joueur, porte-armure, flèche, tableau, cadre, bateau, villageois et entité avec un nom.
     trigger:
@@ -174,7 +174,7 @@ command killall: # tue toutes les entités
         else:
             send option("errorMessage")
 
-command feed [<player>]: # remplie barre de nourriture
+command feed [<player>]: # remplie barre de nourriture d'un joueur
     executable by: players
     description: Remplie la barre de nourriture d'un joueur.
     trigger:
@@ -208,7 +208,7 @@ every 1 second in "world":
             loop all blocks in radius 3 of loop-player:
                 if loop-block is target block of loop-player:
                     set action bar of loop-player to "&a%target block of loop-player%"
-        set {_serverName} to option("serverName")
+        set {_serverName} to option("serverName") # tab
         set tab header to  "&a%{_serverName}%" and footer to "&e%number of all players% joueurs connectés\n&9%ping of loop-player% ms de latence" for loop-player
 
 command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
@@ -222,7 +222,7 @@ command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proch
             set {blockNear.%uuid of player%} to true
             send "&aTu verras désormais le nom du bloc proche de toi."
 
-command casque:
+command casque: # met l'objet dans la main du joueur sur sa tête
     executable by: players
     aliases: hat
     description: Équipe l'objet dans ta main principale sur ta tête.
@@ -244,7 +244,7 @@ command casque:
         else:
             send option("errorMessage")
 
-command clear [<player>]:
+command clear [<player>]: # clear l'invetaire du joueur sauf équipement
     executable by: players
     description: Clear l'inventaire d'un joueur mais pas l'équipement.
     trigger:
@@ -272,7 +272,7 @@ command clear [<player>]:
         else:
             send option("errorMessage")
 
-command clearall [<player>]:
+command clearall [<player>]: # clear tout l'inventaire du joueur
     executable by: players
     aliases: fullclear
     description: Clear tout l'inventaire d'un joueur.
