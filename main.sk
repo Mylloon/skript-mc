@@ -229,7 +229,10 @@ every 1 second in "world":
         
         # tab
         set {_serverName} to option("serverName")
-        set tab header to  "&a%{_serverName}%" and footer to "&e%number of all players% joueurs connectés\n&9%ping of loop-player% ms de latence" for loop-player
+        set {_numberOfConnectedPlayers} to number of all players
+        set {_pluriel} to ""
+        set {_pluriel} to "s" if {_numberOfConnectedPlayers} > 1
+        set tab header to  "&a%{_serverName}%" and footer to "&e%{_numberOfConnectedPlayers}% joueur%{_pluriel}% connecté%{_pluriel}%\n&9%ping of loop-player% ms de latence" for loop-player
         if {nick.%uuid of loop-player%} is set:
             set {_player} to "%{nick.%uuid of loop-player%}%&7 (%loop-player%)"
         else:
@@ -269,7 +272,7 @@ command casque: # met l'objet dans la main du joueur sur sa tête
         else:
             send option("errorMessage")
 
-command clear [<player>]: # clear l'invetaire du joueur sauf équipement
+command clear [<player>]: # clear l'inventaire du joueur sauf équipement
     executable by: players
     description: Clear l'inventaire d'un joueur mais pas l'équipement.
     trigger:
