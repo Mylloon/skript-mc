@@ -450,3 +450,23 @@ command clear [<player>]:
                 send "&aTu as clear ton inventaire."
         else:
             send {@errorMessage}
+
+command clearall [<player>]:
+    executable by: players
+    description: Clear tout l'inventaire d'un joueur.
+    trigger:
+        if player is op:
+            set {_player} to player
+            set {_arg1} to arg-1
+            if player is arg-1:
+                delete {_arg1}
+            if arg-1 is set:
+                set {_player} to arg-1
+            clear {_player}'s inventory
+            if {_arg1} is set:
+                send "&aTu as clear l'inventaire de %arg-1%&a."
+                send "&aTon inventaire a été clear par %player%&a." to arg-1
+            else:
+                send "&aTu as clear ton inventaire."
+        else:
+            send {@errorMessage}
