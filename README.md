@@ -1,7 +1,7 @@
-# skript-mc
+# Skript-mc
 Commandes simples en skript pour mon serveur privé minecraft (en français)
 
-## versions
+## Versions
 - [Skript](https://github.com/SkriptLang/Skript) 2.5.3 (dernière version actuelle)
 - [SkBee](https://github.com/ShaneBeee/SkBee) 1.10.2 (pour l'auto-complétion)
 - [skRayFall](https://dev.bukkit.org/projects/skrayfall) 1.9.25 (pour le `title` dans le /broadcast)
@@ -31,6 +31,7 @@ Commandes simples en skript pour mon serveur privé minecraft (en français)
 - /quelbloc -> Activez ou désactivez le nom du bloc qui se trouve devant vous dans l'`action bar`.
 - /deacoudre -> Commencez une partie de dé à coudre (il téléporte tout le monde sur la plateforme, répétez la commande pour arrêter de jouer, les laines spawn d'elles-mêmes). - *si vous utilisez cela pour vous, vous devez d'abord construire la plateforme et changer les coordonnées.*
 - /casque (or /hat) -> Mettez l'objet de votre main sur votre tête.
+
 ### Features
 - Il ne pleut jamais.
 - Les commandes `home` ont une autocomplétion.
@@ -38,3 +39,6 @@ Commandes simples en skript pour mon serveur privé minecraft (en français)
 - Chat personnalisé.
 - Motd et joueur maximum personnalisés.
 - La commande /clear ne supprime pas l'équipement, pour le supprimer, utilisez /clearall.
+
+## Disclaimer
+Stockage des adresses IP pour la personalisation du Motd.
