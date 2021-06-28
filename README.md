@@ -3,7 +3,7 @@ Commandes simples en skript pour mon serveur privé minecraft. (en français)
 
 ## Versions
 - [Skript](https://github.com/SkriptLang/Skript) 2.5.3 (dernière version actuelle)
-- [SkBee](https://github.com/ShaneBeee/SkBee) 1.10.2 (pour l'auto-complétion)
+- [SkBee](https://github.com/ShaneBeee/SkBee) 1.11.2 (pour l'auto-complétion)
 - [skRayFall](https://dev.bukkit.org/projects/skrayfall) 1.9.25 (pour le `title` dans le /broadcast)
 
 ## Commands & Features
