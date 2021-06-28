@@ -1,38 +1,40 @@
 # skript-mc
-simple commands in skript for my private minecraft server (in french)
+Commandes simples en skript pour mon serveur privé minecraft (en français)
 
 ## versions
-- [Skript](https://github.com/SkriptLang/Skript) 2.5.3 (latest current version)
-- [SkBee](https://github.com/ShaneBeee/SkBee) 1.10.2 (for the completion suggest)
-- [skRayFall](https://dev.bukkit.org/projects/skrayfall) 1.9.25 (for the title in broadcast)
+- [Skript](https://github.com/SkriptLang/Skript) 2.5.3 (dernière version actuelle)
+- [SkBee](https://github.com/ShaneBeee/SkBee) 1.10.2 (pour l'auto-complétion)
+- [skRayFall](https://dev.bukkit.org/projects/skrayfall) 1.9.25 (pour le `title` dans le /broadcast)
 
 ## Commands & Features
+### Commands
+*(quand l'argument est entre `[]`, c'est facultatif, quand c'est entre `<>`, c'est obligatoire)*
 - /skr -> Reload main skript.
-- /forceexecute -> Forces a player to execute a command.
-- /broadcast <message> (or /bc) -> Make an announcement. (30s cooldown)
-- /skull <joueur> (or /head, /tete) -> Drop a player's head.
-- /clearchat (or /cc) -> Clear the chat history for everyone. (1mn cooldown)
-- /sethome [nom] -> Define a teleportation point. (e.g. your house)
-- /delhome [nom] -> Removes a teleportation point.
-- /home [nom] -> Teleports you to a teleportation point.
-- /listhome -> List of your teleportation points.
-- /afk -> Announce that you are going to afk.
-- /gmc [joueur] -> Change the game mode to creative.
-- /gms [joueur] -> Change the game mode to spectator.
-- /top -> Teleports you to the top of the block above you.
-- /killall -> Kills all entities in the world except: player, armour stand, arrow, paint, item frame, boat, villager and entity with a name.
-- /feed [joueur] -> Fills a player's food bar.
-- /nickname [joueur] <surnom|off> (or /nick) -> Change your name or another player's name. (max 15 characters) - Put `off` as an argument to delete the nickname.
-- /msg <joueur> <message> (or /whisper, /w, /tell, /t) -> Send a private message to a player.
-- /reponse <message> (or /rep, /r) -> Sends a reply to a player.
-- /rename <nom> -> Rename an item.
-- /quelbloc -> Activate or deactivate the name of the block in front of you.
-- /deacoudre -> Start a game of thimble (it teleports everyone to the platform, repeat the command to stop playing, the wools land by themselves) - if you use that for you, you should first build the platform and change the coordinates
-- /casque (or /hat) -> Put the item in your hand on your head.
-<br><br>
-- It never rains.
-- Home commands got autocompletion.
-- Custom first join, join and quit message.
-- Custom chat.
-- Custom motd and max player
-- The /clear command does not remove the equipment, to remove it use /clearall.
+- /forceexecute -> Force un joueur à exécuter une commande.
+- /broadcast <message> (or /bc) -> Faites une annonce. (30s cooldown)
+- /skull <joueur> (or /head, /tete) -> Donnez la tête d'un joueur.
+- /clearchat (or /cc) -> Efface l'historique des tchats pour tout le monde. (1mn de recharge)
+- /sethome [nom] -> Définissez un point de téléportation. (par exemple, votre maison)
+- /delhome [nom] -> Supprime un point de téléportation.
+- /home [nom] -> Permet de se téléporter vers un point de téléportation.
+- /listhome -> Liste de vos points de téléportation.
+- /afk -> Annoncez que vous allez être afk.
+- /gmc [joueur] -> Changez le mode de jeu d'un joueur en mode créatif.
+- /gms [joueur] -> Changez le mode de jeu d'un joueur en mode spectateur.
+- /top -> Vous téléporte au sommet du bloc au-dessus de vous.
+- /killall -> Tue toutes les entités du monde sauf : les joueurs, les porte-d'armure, les flèches, les tableaux, les cadres, les bateaux, les villageois et les entités ayant un nom.
+- /feed [joueur] -> Remplit la barre de nourriture d'un joueur.
+- /nickname [joueur] <surnom|off> (or /nick) -> Changez votre nom ou celui d'un autre joueur. (max 15 caractères) - Mettez `off` comme argument pour supprimer le surnom.
+- /msg <joueur> <message> (or /whisper, /w, /tell, /t) -> Envoyez un message privé à un joueur.
+- /reponse <message> (or /rep, /r) -> Envoie une réponse à un joueur.
+- /rename <nom> -> Renommer un élément.
+- /quelbloc -> Activez ou désactivez le nom du bloc qui se trouve devant vous dans l'`action bar`.
+- /deacoudre -> Commencez une partie de dé à coudre (il téléporte tout le monde sur la plateforme, répétez la commande pour arrêter de jouer, les laines spawn d'elles-mêmes). - *si vous utilisez cela pour vous, vous devez d'abord construire la plateforme et changer les coordonnées.*
+- /casque (or /hat) -> Mettez l'objet dans votre main sur votre tête.
+### Features
+- Il ne pleut jamais.
+- Les commandes `home` ont une autocomplétion.
+- Personnalisation du message de première connexion, de connexion et de départ.
+- Chat personnalisé.
+- Motd et joueur maximum personnalisés.
+- La commande /clear ne supprime pas l'équipement, pour le supprimer, utilisez /clearall.
