@@ -20,6 +20,8 @@ command nickname [<player>] <text>: # changement de pseudo
                 set {_player} to arg-1
             if player is {_player}:
                 set {_playerNAME} to "vous"
+            else:
+                send "&aSurnom changé."
             if arg-2 is "off":
                 delete {nick.%{_playerUUID}%}
                 send "&6Tu n'as plus de surnom. (changé par %player%&6)" to {_player}
