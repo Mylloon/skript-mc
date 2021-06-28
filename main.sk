@@ -248,7 +248,7 @@ command killall: # tue toutes les entités
                     kill loop-entity
                     add 1 to {_count}
             send "Tu as tué %{_count}% entités."
-            sendToOperators(player, "&7%{player}%&7 as tué %{_count}%&7 entités.")
+            sendToOperators(player, "&7%player%&7 as tué %{_count}%&7 entités.")
         else:
             send {@errorMessage}
 
