@@ -219,9 +219,6 @@ every 1 second in "world":
             set {_player} to "%loop-player%"
         set tab list name of loop-player to {_player}
 
-        # pseudo au dessus du joueur
-        set display name of loop-player to {_player}
-
 command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
     executable by: players
     description: T'affiches le bloc en face de toi. (switch off/on)
