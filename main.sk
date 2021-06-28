@@ -204,12 +204,23 @@ on server list ping: # motd
 
 every 1 second in "world":
     loop all players:
-        if {blockNear.%uuid of loop-player%} is true: # affiche le block proche de toi
+        # affiche le block proche de toi
+        if {blockNear.%uuid of loop-player%} is true:
             loop all blocks in radius 3 of loop-player:
                 if loop-block is target block of loop-player:
                     set action bar of loop-player to "&a%target block of loop-player%"
-        set {_serverName} to option("serverName") # tab
+        
+        # tab
+        set {_serverName} to option("serverName")
         set tab header to  "&a%{_serverName}%" and footer to "&e%number of all players% joueurs connectés\n&9%ping of loop-player% ms de latence" for loop-player
+        if {nick.%uuid of loop-player%} is set:
+            set {_player} to "%{nick.%uuid of loop-player%}%&7 (%loop-player%)"
+        else:
+            set {_player} to "%loop-player%"
+        set tab list name of loop-player to {_player}
+
+        # pseudo au dessus du joueur
+        set display name of loop-player to {_player}
 
 command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
     executable by: players
