@@ -67,6 +67,7 @@ command party [<player>] [<text>]: # commande party
                     stop
         if arg-1 is set:
             if {party} is set:
+                send "&aTu as invité &l%arg-1%&r&a."
                 send formatted "<tooltip:&3Clique sur le message pour rejondre la partie.><cmd:/party join>&aVeux tu rejoindre la partie aux côtés de &9%player%&a ?" to arg-1
             else:
                 send {@pasDePartie}
