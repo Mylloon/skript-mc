@@ -1,20 +1,32 @@
-command deacoudre: # lancement de la partie
+command deacoudre [<text>]: # lancement de la partie
     executable by: players
     description: Lance une partie de dé à coudre.
     trigger:
+        if arg-1 is set:
+            if player is op:
+                if arg-1 is "spawn":
+                    set {thimble.location} to location of player
+                    send "&aLe dé à coudre téléportes désormais ici."
+                    stop
+            else:
+                send option("errorMessage")
+                stop
+        if {thimble.location} is not set:
+            send "&4Tu n'as pas défini de point de téléportation : &r&l/deacoudre spawn"
+            stop
         if {party.player.%uuid of player%} is set:
             if {thimble} is true:
                 delete {thimble}
-                teleport player to location at 101.5, 83, -314 in world "world"
-                execute player command "fill 103 57 -313 99 57 -305 water"
                 loop {party.list::*}:
                     send "&cPartie de dé à coudre terminée." to loop-value
+                    teleport loop-value to {thimble.location}
                     set gamemode of loop-value to creative
+                execute player command "fill 103 57 -313 99 57 -305 water"
             else:
                 set {thimble} to true
                 loop {party.list::*}:
                     send "&aDémarrage de la partie de dé à coudre !" to loop-value
-                    teleport loop-value to location at 101.5, 83, -314 in world "world"
+                    teleport loop-value to {thimble.location}
                     set gamemode of loop-value to adventure
                     feed loop-value
                     heal loop-value
@@ -42,6 +54,14 @@ every 0.5 second in "world": # pose du bloc et téléporatation
             if {_zLocationBlock1} and {_zLocationBlock2} >= 8:
                 continue
             set block at loop-value to wool
-            teleport loop-value to location at 101.5, 83, -314 in world "world"
+            teleport loop-value to {thimble.location}
             feed loop-value
             heal loop-value
+
+on death:
+    if {thimble} is true:
+        if {party.player.%uuid of player%} is set:
+            cancel event
+            set gamemode of player to spectator
+            loop {party.list::*}:
+                send "&c%player%&b a été éliminé !" to loop-value
