@@ -1,5 +1,5 @@
 # Skript-mc
-Commandes simples en skript pour mon serveur privé minecraft (en français)
+Commandes simples en skript pour mon serveur privé minecraft. (en français)
 
 ## Versions
 - [Skript](https://github.com/SkriptLang/Skript) 2.5.3 (dernière version actuelle)
