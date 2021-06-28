@@ -55,16 +55,6 @@ command clearchat: # supprime l'historique du tchat
             cancel command cooldown
             send option("errorMessage")
 
-command forceexecute <player> <text>: # force un joueur à exécuter une commande
-    executable by: players, console
-    aliases: fe
-    description: Force une personne à executer une commande.
-    trigger:
-        if player is op:
-            execute arg-1 command arg-2
-        else:
-            send option("errorMessage")
-
 on weather change to rain or thunder: # soleil pour toujours
     cancel event
 
@@ -132,17 +122,6 @@ command top: # téléporte un joueur tout en haut
         else:
             send option("errorMessage")
 
-on first join: # premiere fois que le joueur rejoint le serveur
-    set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
-
-on join: # joueur rejoint le serveur
-    set join message to "%player% &aa rejoint le serveur !"
-    set {playerIP.%ip of player%} to player
-
-on quit:
-    set quit message to "%player% &ca quitté le serveur !" # joueur quitte le serveur
-    delete {dmReply.%uuid of player%} # suppression de la réponse
-
 command killall: # tue toutes les entités sauf exeptions
     executable by: players
     description: Tue toutes les entités du monde sauf joueur, porte-armure, flèche, tableau, cadre, bateau, villageois et entité avec un nom.
@@ -192,12 +171,50 @@ command feed [<player>]: # remplie barre de nourriture d'un joueur
         else:
             send option("errorMessage")
 
+on first join: # premiere fois que le joueur rejoint le serveur
+    set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
+
+on join: # joueur rejoint le serveur
+    set join message to "%player% &aa rejoint le serveur !"
+    if {playerIP.%ip of player%} is not false:
+        set {playerIP.%ip of player%} to player
+
+on quit:
+    set quit message to "%player% &ca quitté le serveur !" # joueur quitte le serveur
+    delete {dmReply.%uuid of player%} # suppression de la réponse
+
+command ip [<text>]: # information sur ip stocké
+    executable by: players
+    description: Information concernant ton IP et ce que collecte le serveur.
+    trigger:
+        if arg-1 is "save":
+            if {playerIP.%ip of player%} is false:
+                set {playerIP.%ip of player%} to player
+                send "&aRéactivation de l'enrengistrement de ton IP."
+            else:
+                set {playerIP.%ip of player%} to false
+                send "&cDésactivation de l'enrengistrement de ton IP."
+                execute player command "ip delete"
+            stop
+        else:
+            send "&3Le serveur collecte &cton adresse IP&3 et le lie à ton &cpseudo Minecraft&3."
+            send ""
+            send "&3Pourquoi l'adresse IP ? &cPour te donner un motd personnalisé&3."
+            send ""
+            send "&3Que faire pour ne plus lié mon adresse IP avec mon pseudo (ou inversement) ? &c/ip save"
+            send ""
+            set {_inDB} to "oui"
+            set {_inDB} to "non" if {playerIP.%ip of player%} is false
+            send "&3Ton IP : &c%ip of player%&3 | Compte lié à l'IP : &c%{_inDB}%&3."
+
 on server list ping: # motd
     if {playerIP.%ip%} is set:
-        set motd to "&e&k||| &cSalut &a%{playerIP.%ip%}%&c, reconnecte-toi ! &e&k|||"
-    else:
-        set {_serverName} to option("serverName")
-        set motd to "&e&k||| &c%{_serverName}% &e&k|||"
+        if {playerIP.%ip%} is not false:
+            set {_motd} to "&e&k||| &cSalut &a%{playerIP.%ip%}%&c, reconnecte-toi ! &e&k|||"
+    if {_motd} is not set:
+        set {_srvName} to option("serverName")
+        set {_motd} to "&e&k||| &c%{_srvName}% &e&k|||"
+    set motd to {_motd}
     set max players count to (number of all players + 1)
     if max players count > {_playerCount}:
         set max players count to (number of all players + 1)
