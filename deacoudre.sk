@@ -53,7 +53,29 @@ every 0.5 second in "world": # pose du bloc et téléporatation
                 continue
             if {_zLocationBlock1} and {_zLocationBlock2} >= 8:
                 continue
-            set block at loop-value to wool
+            
+            set {_niceJump} to true
+            set {_blockX} to X-location of block at loop-value
+            set {_blockY} to Y-location of block at loop-value
+            set {_blockZ} to Z-location of block at loop-value
+            if block at location ({_blockX} - 1), {_blockY}, {_blockZ} in world "world" is water:
+                set {_niceJump} to false
+            if block at location ({_blockX} + 1), {_blockY}, {_blockZ} in world "world" is water:
+                set {_niceJump} to false
+            if block at location {_blockX}, {_blockY}, ({_blockZ} - 1) in world "world" is water:
+                set {_niceJump} to false
+            if block at location {_blockX}, {_blockY}, ({_blockZ} + 1) in world "world" is water:
+                set {_niceJump} to false
+
+            if {_niceJump} is true:
+                set block at loop-value to gold block
+                set {_player} to loop-value
+                loop {party.list::*}:
+                    if gamemode of {_player} is adventure:
+                        send "%{_player}% a fait un beau jump !" to loop-value-2
+            else:
+                if gamemode of {_player} is adventure:
+                    set block at loop-value to wool
             teleport loop-value to {thimble.location}
             feed loop-value
             heal loop-value
