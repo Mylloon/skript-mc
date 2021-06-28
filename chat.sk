@@ -15,19 +15,19 @@ command nickname [<player>] <text>: # changement de pseudo
             set {_playerUUID} to uuid of player
             set {_player} to player
             set {_playerNAME} to player
-            if player-arg is set:
-                set {_playerUUID} to uuid of player-arg
-                set {_player} to player-arg
+            if arg-1 is set:
+                set {_playerUUID} to uuid of arg-1
+                set {_player} to arg-1
             if player is {_player}:
                 set {_playerNAME} to "vous"
-            if text-arg is "off":
+            if arg-2 is "off":
                 delete {nick.%{_playerUUID}%}
                 send "&6Tu n'as plus de surnom. (changé par %player%&6)" to {_player}
             else:
-                if length of text-arg is greater than 15:
+                if length of arg-2 is greater than 15:
                     send "&4Ce surnom est trop long."
                 else:
-                    set {nick.%{_playerUUID}%} to colored text-arg
+                    set {nick.%{_playerUUID}%} to colored arg-2
                     send "&6Ton surnom est désormais &r%{nick.%{_playerUUID}%}%&6. (changé par %{_playerNAME}%&6)" to {_player}
         else:
             send option("errorMessage")
@@ -37,8 +37,8 @@ command msg <player> <text>: # DM
     aliases: whisper, w, tell, t
     description: Envoie un message privé à un joueur.
     trigger:
-        send "&8[Moi -> %arg-1%&8]&7 %colored text-arg%" to player
-        send "&8[%player%&8 -> Moi] &b%colored text-arg%" to arg-1
+        send "&8[Moi -> %arg-1%&8]&7 %colored arg-2%" to player
+        send "&8[%player%&8 -> Moi] &b%colored arg-2%" to arg-1
         set {dmReply.%uuid of player%} to arg-1
         set {dmReply.%uuid of arg-1%} to player
 
