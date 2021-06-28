@@ -30,7 +30,7 @@ Commandes simples en skript pour mon serveur privé minecraft (en français)
 - /rename <nom> -> Renommer l'item dans votre main.
 - /quelbloc -> Activez ou désactivez le nom du bloc qui se trouve devant vous dans l'`action bar`.
 - /deacoudre -> Commencez une partie de dé à coudre (il téléporte tout le monde sur la plateforme, répétez la commande pour arrêter de jouer, les laines spawn d'elles-mêmes). - *si vous utilisez cela pour vous, vous devez d'abord construire la plateforme et changer les coordonnées.*
-- /casque (or /hat) -> Mettez l'objet dans votre main sur votre tête.
+- /casque (or /hat) -> Mettez l'objet de votre main sur votre tête.
 ### Features
 - Il ne pleut jamais.
 - Les commandes `home` ont une autocomplétion.
