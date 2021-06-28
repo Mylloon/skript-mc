@@ -1,3 +1,10 @@
+options:
+    X1: 103.5
+    X2: 99.5
+    Yeau: 57.5
+    Z1: -312.5
+    Z2: -304.5
+
 command deacoudre [<text>]: # lancement de la partie
     executable by: players
     description: Lance une partie de dé à coudre.
@@ -39,21 +46,23 @@ every 0.5 second in "world": # pose du bloc et téléporatation
         stop
     loop {party.list::*}:
         set action bar of loop-value to "&dEn partie de &lDé à coudre&r&d."
-        if block at loop-value is water:
-            set {_xLocationBlock1} to difference between X-location of block at loop-value and 103.5
-            set {_xLocationBlock2} to difference between X-location of block at loop-value and 99.5
-            set {_zLocationBlock1} to difference between Z-location of block at loop-value and -312.5
-            set {_zLocationBlock2} to difference between Z-location of block at loop-value and -304.5
-            set {_yLocationBlock} to difference between Y-location of block at loop-value and 57.5
+        if block at loop-value is water: # si dans l'eau
+            # vérification que c'est l'eau du dé à coudre
+            set {_xLocationBlock1} to difference between X-location of block at loop-value and {@X1}
+            set {_xLocationBlock2} to difference between X-location of block at loop-value and {@X2}
+            set {_zLocationBlock1} to difference between Z-location of block at loop-value and {@Z1}
+            set {_zLocationBlock2} to difference between Z-location of block at loop-value and {@Z2}
+            set {_yLocationBlock} to difference between Y-location of block at loop-value and {@Yeau}
             if {_xLocationBlock1} and {_xLocationBlock2} and {_zLocationBlock1} and {_zLocationBlock2} <= 0:
                 continue
-            if {_xLocationBlock1} and {_xLocationBlock2} >= 4:
+            if {_xLocationBlock1} and {_xLocationBlock2} >= ({@X1} - {@X2}):
                 continue
             if {_yLocationBlock} != 0:
                 continue
-            if {_zLocationBlock1} and {_zLocationBlock2} >= 8:
+            if {_zLocationBlock1} and {_zLocationBlock2} >= ({@X1} - {@X2}):
                 continue
             
+            # vérification si c'est un jump qui est dur à faire (entre 4 blocs pleins)
             set {_niceJump} to true
             set {_blockX} to X-location of block at loop-value
             set {_blockY} to Y-location of block at loop-value
@@ -67,6 +76,7 @@ every 0.5 second in "world": # pose du bloc et téléporatation
             if block at location {_blockX}, {_blockY}, ({_blockZ} + 1) in world "world" is water:
                 set {_niceJump} to false
 
+            # pose du bloc (or si jump difficile + message, laine si normal)
             if {thimble.dead.%uuid of loop-value%} is not set:
                 if {_niceJump} is true:
                     set block at loop-value to gold block
@@ -77,6 +87,8 @@ every 0.5 second in "world": # pose du bloc et téléporatation
                     set block at loop-value to wool
             else:
                 delete {thimble.dead.%uuid of loop-value%}
+            
+            # téléportation et feed/heal
             teleport loop-value to {thimble.location}
             feed loop-value
             heal loop-value
@@ -86,6 +98,11 @@ on death:
         if {party.player.%uuid of player%} is set:
             cancel event
             set gamemode of player to spectator
+            set {thimble.dead.%uuid of player%} to true
+            set {_finPartie} to true
             loop {party.list::*}:
+                if {thimble.dead.%uuid of loop-value%} is false:
+                    set {_finPartie} to false
                 send "&c%player%&b a été éliminé !" to loop-value
-                set {thimble.dead.%uuid of player%} to true
+            if {_finPartie} is true:
+                execute player command "deacoudre"
