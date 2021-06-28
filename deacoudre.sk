@@ -67,15 +67,16 @@ every 0.5 second in "world": # pose du bloc et téléporatation
             if block at location {_blockX}, {_blockY}, ({_blockZ} + 1) in world "world" is water:
                 set {_niceJump} to false
 
-            if {_niceJump} is true:
-                set block at loop-value to gold block
-                set {_player} to loop-value
-                loop {party.list::*}:
-                    if gamemode of {_player} is adventure:
-                        send "%{_player}% a fait un beau jump !" to loop-value-2
-            else:
-                if gamemode of {_player} is adventure:
+            if {thimble.dead.%uuid of loop-value%} is not set:
+                if {_niceJump} is true:
+                    set block at loop-value to gold block
+                    set {_player} to loop-value
+                    loop {party.list::*}:
+                        send "&a&l%{_player}%&r&e a fait un beau jump !" to loop-value-2
+                else:
                     set block at loop-value to wool
+            else:
+                delete {thimble.dead.%uuid of loop-value%}
             teleport loop-value to {thimble.location}
             feed loop-value
             heal loop-value
@@ -87,3 +88,4 @@ on death:
             set gamemode of player to spectator
             loop {party.list::*}:
                 send "&c%player%&b a été éliminé !" to loop-value
+                set {thimble.dead.%uuid of player%} to true
