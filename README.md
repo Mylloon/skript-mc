@@ -29,8 +29,9 @@ Commandes simples en skript pour mon serveur privé minecraft qui tourne sur [Pa
 - **/reponse \<message>** (ou /rep, /r) ➔ Envoie une réponse à un joueur.
 - **/rename \<nom>** ➔ Renommer l'item dans votre main.
 - **/quelbloc** ➔ Activez ou désactivez le nom du bloc qui se trouve devant vous dans l'`action bar`.
-- **/deacoudre** ➔ Commencez une partie de dé à coudre (il téléporte tout le monde sur la plateforme, répétez la commande pour arrêter de jouer, les laines spawn d'elles-mêmes). - *si vous utilisez cela pour vous, vous devez d'abord construire la plateforme et changer les coordonnées.*
+- **/deacoudre** ➔ Commencez une partie de dé à coudre (il téléporte tout le monde sur la plateforme, répétez la commande pour arrêter de jouer, les laines spawn d'elles-mêmes) (lié avec /party). - *si vous utilisez cela pour vous, vous devez d'abord construire la plateforme et changer les coordonnées.*
 - **/casque** (ou /hat) ➔ Mettez l'objet de votre main sur votre tête.
+- **/party [create/delete/join/leave]** ➔ Créer une partie (lié avec /deacoudre).
 
 ### Features
 - **Il ne pleut jamais.**
