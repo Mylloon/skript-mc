@@ -31,6 +31,7 @@ command party [<player>] [<text>]: # commande party
                             send "%player%&c a quitté la partie." to loop-value
                         remove player from {party.list::*}
                         send "&cTu as quitté la partie."
+                        stop
                 else:
                     send "&4Tu n'es pas dans la partie."
                     stop
@@ -50,6 +51,8 @@ command party [<player>] [<text>]: # commande party
             if arg-2 is "delete":
                 if player is {party.creator}:
                     if {party} is set:
+                        if {thimble} is true:
+                            execute player command "deacoudre"
                         loop {party.list::*}:
                             delete {party.player.%uuid of loop-value%}
                             send "&cPartie supprimée." to loop-value
