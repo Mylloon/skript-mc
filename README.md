@@ -10,7 +10,6 @@ Commandes simples en skript pour mon serveur privé minecraft qui tourne sur [Pa
 ### Commands
 *(quand l'argument est entre `[]`, c'est facultatif, quand c'est entre `<>`, c'est obligatoire)*
 - /skr -> Reload main skript.
-- /forceexecute <joueur> <commande> -> Force un joueur à exécuter une commande.
 - **/broadcast <message>** (or /bc) -> Faites une annonce. (30s cooldown)
 - **/skull <joueur>** (or /head, /tete) -> Donnez la tête d'un joueur.
 - **/clearchat** (or /cc) -> Efface l'historique des tchats pour tout le monde. (1mn de recharge)
