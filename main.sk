@@ -194,14 +194,13 @@ command ip [<text>]: # information sur ip stocké
             else:
                 set {playerIP.%ip of player%} to false
                 send "&cDésactivation de l'enrengistrement de ton IP."
-                execute player command "ip delete"
             stop
         else:
             send "&3Le serveur collecte &cton adresse IP&3 et le lie à ton &cpseudo Minecraft&3."
             send ""
             send "&3Pourquoi l'adresse IP ? &cPour te donner un motd personnalisé&3."
             send ""
-            send "&3Que faire pour ne plus lié mon adresse IP avec mon pseudo (ou inversement) ? &c/ip save"
+            send formatted "<tooltip:&3Clique pour lancer /ip save.><cmd:/ip save>&3Que faire pour ne plus lié mon adresse IP avec mon pseudo (ou inversement) ? &c/ip save"
             send ""
             set {_inDB} to "oui"
             set {_inDB} to "non" if {playerIP.%ip of player%} is false
