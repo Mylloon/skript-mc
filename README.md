@@ -1,7 +1,7 @@
 # Skript-mc
-Commandes simples en skript pour mon serveur privé minecraft. (en français)
+Commandes simples en skript pour mon serveur privé minecraft qui tourne sur [PaperMC](https://github.com/PaperMC/Paper). (en français)
 
-## Versions
+## Versions des plugins utilisés
 - [Skript](https://github.com/SkriptLang/Skript) 2.5.3 (dernière version actuelle)
 - [SkBee](https://github.com/ShaneBeee/SkBee) 1.11.2 (pour l'auto-complétion)
 - [skRayFall](https://dev.bukkit.org/projects/skrayfall) 1.9.25 (pour le `title` dans le /broadcast)
