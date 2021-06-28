@@ -1,0 +1,63 @@
+command party [<player>] [<text>]: # commande party
+    executable by: players
+    description: Regarde le nombre de joueur dans une partie ou invite un joueur dans ta partie.
+    trigger:
+        if arg-2 is set:
+            if arg-2 is "join": # rejoindre la partie
+                if {party} is set:
+                    set {party.player.%uuid of player%} to true
+                    loop {party.list::*}:
+                        send "%player%&a a rejoint la partie." to loop-value
+                    add player to {party.list::*}
+                    send "&aTu as rejoint la partie."
+                else:
+                    send "&4Aucune partie est en cours."
+                stop
+            if arg-2 is "leave":
+                if {party} is set:
+                    if player is {party.creator}:
+                        execute player command "party delete"
+                    else:
+                        delete {party.player.%uuid of player%}
+                        loop {party.list::*}:
+                            send "%player%&c a quitté la partie." to loop-value
+                        remove player from {party.list::*}
+                        send "&cTu as quitté la partie."
+                else:
+                    send "&4Tu n'es pas dans la partie."
+            if arg-2 is "create":
+                if player is op:
+                    if {party} is set:
+                        send "&4La party est déjà créer par %{party.creator}%"
+                    else:
+                        set {party.creator} to player
+                        send "&aTu as créer la partie."
+                        execute player command "party join"
+                else:
+                    send option("errorMessage")
+            if arg-2 is "delete":
+                if player is {party.creator}:
+                    if {party} is set:
+                        send "&cLa partie a été supprimée."
+                        loop {party.list::*}:
+                            delete {party.player.%uuid of loop-value%}
+                            send "&cPartie supprimée." to loop-value
+                        delete {party.list::*}
+                    else:
+                        send "&4Il n'y a aucune partie en cours."
+                else:
+                    send option("errorMessage")
+        if arg-1 is set:
+            send formatted "<tooltip:&3Clique sur le message pour rejondre la partie.><cmd:/party join>&aVeux tu rejoindre la partie de &9%player%&a ?" to arg-1
+        else:
+            set {_list} to "%{party.list::*}%"
+            replace all "and" with "&7et&3" in {_list}
+            replace all "," with "&7,&3" in {_list}
+            send "Personne.s dans ta partie : &3%{_list}%&7."
+
+on quit:
+    if {party.player.%uuid of player%} is set:
+        if player is {party.creator}:
+            execute player command "party delete"
+        else:
+            execute player command "party leave"
