@@ -5,6 +5,11 @@ options:
     Z1: -312.5
     Z2: -304.5
 
+on load:
+    ScriptList("add", script)
+on unload:
+    ScriptList("remove", script)
+
 command deacoudre [<text>]: # lancement de la partie
     executable by: players
     description: Lance une partie de dé à coudre.

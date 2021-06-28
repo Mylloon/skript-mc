@@ -1,6 +1,11 @@
 options:
     pasDePartie: "&4Aucune partie est en cours."
 
+on load:
+    ScriptList("add", script)
+on unload:
+    ScriptList("remove", script)
+
 command party [<player>] [<text>]: # commande party
     executable by: players
     description: Regarde le nombre de joueur dans une partie ou invite un joueur dans ta partie.

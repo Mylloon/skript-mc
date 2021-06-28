@@ -1,3 +1,8 @@
+on load:
+    ScriptList("add", script)
+on unload:
+    ScriptList("remove", script)
+
 command skr [<text>]: # reload skript
     executable by: players, console
     description: Reload de skripts.
@@ -5,8 +10,12 @@ command skr [<text>]: # reload skript
         if arg-1 is set:
             execute player command "sk reload %arg-1%"
         else if arg-1 isn't set:
-            execute player command "sk reload functions" # pour être sûr que functions est bien chargé en premier
             execute player command "sk reload scripts"
+
+on tab complete for "skr": # autocompletion des homes
+    set tab completions for position 1 to the first element of {scripts::*}
+    loop {scripts::*}:
+        add loop-value to tab completions
 
 command broadcast [<text>]: # annonce
     executable by: players, console

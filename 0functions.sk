@@ -1,3 +1,9 @@
+# named with a 0 at the begining to be sure he is load first
+on load:
+    ScriptList("add", script)
+on unload:
+    ScriptList("remove", script)
+
 function option(option: text) :: text: # options
     if {_option} is "serverName":
         set {_resultat} to "Serveur d'Anri"
@@ -10,3 +16,9 @@ function sendToOperators(player: player, message: text): # envoie message aux op
         if loop-player is a op:
             if loop-player is not {_player}:
                 send {_message} to loop-player
+
+function ScriptList(addRemove: text, list: text):
+    if {_addRemove} is "add":
+        add {_list} to {scripts::*}
+    if {_addRemove} is "remove":
+        remove {_list} from {scripts::*}
