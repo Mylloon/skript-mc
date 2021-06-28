@@ -1,0 +1,53 @@
+on chat: # chat
+    cancel event
+    if {nick.%uuid of player%} is set:
+        set {_player} to {nick.%uuid of player%}
+    else:
+        set {_player} to player's name
+    broadcast "<%{_player}%&r> %colored message%" in world of player
+
+command nickname [<player>] <text>: # changement de pseudo
+    executable by: players
+    aliases: nick
+    description: Change ton nom ou celui d'un autre joueur. (max 15 charactères)
+    trigger:
+        if player is op:
+            set {_playerUUID} to uuid of player
+            set {_player} to player
+            set {_playerNAME} to player
+            if player-arg is set:
+                set {_playerUUID} to uuid of player-arg
+                set {_player} to player-arg
+            if player is {_player}:
+                set {_playerNAME} to "vous"
+            if text-arg is "off":
+                delete {nick.%{_playerUUID}%}
+                send "&6Tu n'as plus de surnom. (changé par %player%&6)" to {_player}
+            else:
+                if length of text-arg is greater than 15:
+                    send "&4Ce surnom est trop long."
+                else:
+                    set {nick.%{_playerUUID}%} to colored text-arg
+                    send "&6Ton surnom est désormais &r%{nick.%{_playerUUID}%}%&6. (changé par %{_playerNAME}%&6)" to {_player}
+        else:
+            send option("errorMessage")
+
+command msg <player> <text>: # DM
+    executable by: players
+    aliases: whisper, w, tell, t
+    description: Envoie un message privé à un joueur.
+    trigger:
+        send "&8[Moi -> %arg-1%&8]&7 %colored text-arg%" to player
+        send "&8[%player%&8 -> Moi] &b%colored text-arg%" to arg-1
+        set {dmReply.%uuid of player%} to arg-1
+        set {dmReply.%uuid of arg-1%} to player
+
+command reponse <text>: # réponse à un DM
+    executable by: players
+    aliases: rep, r
+    description: Envoie un réponse à un joueur.
+    trigger:
+        if {dmReply.%uuid of player%} is set:
+            execute player command "msg %{dmReply.%uuid of player%}% %arg-1%"
+        else:
+            send "&4Tu n'as personne a qui répondre."

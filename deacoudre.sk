@@ -1,0 +1,46 @@
+command deacoudre: # dé à coudre
+    executable by: players
+    description: Lance une partie de dé à coudre.
+    trigger:
+        if player is op:
+            if {thimble} is true:
+                delete {thimble}
+                teleport player to location at 101.5, 83, -314 in world "world"
+                execute player command "fill 103 57 -313 99 57 -305 water"
+                broadcast "&cPartie de dé à coudre terminée."
+                set gamemode of all players to creative
+            else:
+                set {thimble} to true
+                broadcast "&aDémarrage de la partie de dé à coudre !"
+                loop all players:
+                    teleport loop-player to location at 101.5, 83, -314 in world "world"
+                    set gamemode of loop-player to adventure
+                    feed loop-player
+                    heal loop-player
+                    cure loop-player
+        else:
+            send option("errorMessage")
+
+every 0.5 second in "world": # dé à coudre
+    if {thimble} is not true:
+        stop
+    loop all players:
+        set action bar of loop-player to "&dEn partie de &lDé à coudre&r&d."
+        if block at loop-player is water:
+            set {_xLocationBlock1} to difference between X-location of block at loop-player and 103.5
+            set {_xLocationBlock2} to difference between X-location of block at loop-player and 99.5
+            set {_zLocationBlock1} to difference between Z-location of block at loop-player and -312.5
+            set {_zLocationBlock2} to difference between Z-location of block at loop-player and -304.5
+            set {_yLocationBlock} to difference between Y-location of block at loop-player and 57.5
+            if {_xLocationBlock1} and {_xLocationBlock2} and {_zLocationBlock1} and {_zLocationBlock2} <= 0:
+                continue
+            if {_xLocationBlock1} and {_xLocationBlock2} >= 4:
+                continue
+            if {_yLocationBlock} != 0:
+                continue
+            if {_zLocationBlock1} and {_zLocationBlock2} >= 8:
+                continue
+            set block at loop-player to wool
+            teleport loop-player to location at 101.5, 83, -314 in world "world"
+            feed loop-player
+            heal loop-player

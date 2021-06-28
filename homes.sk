@@ -1,0 +1,68 @@
+command sethome [<text>]: # défni un home
+    executable by: players
+    description: Défini un point de téléportation.
+    trigger:
+        if arg-1 isn't set:
+            set {_name} to "maison"
+        else:
+            set {_name} to arg-1
+        if {home.%player's uuid%.%{_name}%} is set:
+            if arg-1 isn't set:
+                set {_name} to ""
+            else:
+                set {_name} to "%{_name}% "
+            send "&4Cette maison existe déjà, &8/delhome %{_name}%&4pour la supprimer."
+        else:
+            remove {_name} from {home.%player's uuid%::*}
+            add {_name} to {home.%player's uuid%::*}
+            set {home.%player's uuid%.%{_name}%} to player's location
+            send "Ta maison ""&a%{_name}%&r"" est maintenant définie aux coordonnées &7%player's location%&r !"
+
+command delhome [<text>]: # supprime un home
+    executable by: players
+    description: Supprime un point de téléportation.
+    trigger:
+        if arg-1 isn't set:
+            set {_name} to "maison"
+        else:
+            set {_name} to arg-1
+        if {home.%player's uuid%.%{_name}%} is set:
+            remove {_name} from {home.%player's uuid%::*}
+            clear {home.%player's uuid%.%{_name}%}
+            send "Maison ""&a%{_name}%&r"" supprimée."
+        else:
+            send "&4Cette maison n'existe pas."
+            make player execute command "listhome"
+
+command home [<text>]: # téléportation vers home
+    executable by: players
+    description: Te téléportes vers un point de téléportation.
+    trigger:
+        if arg-1 isn't set:
+            set {_name} to "maison"
+        else:
+            set {_name} to arg-1
+        if {home.%player's uuid%.%{_name}%} is set:
+            send "&aTéléportation vers &9%{_name}% &a!"
+            teleport player to {home.%player's uuid%.%{_name}%}
+        else:
+            send "&4Le home ""&c%{_name}%"" &4n'existe pas."
+            make player execute command "listhome"
+
+on tab complete for "home" and "delhome": # autocompletion des homes
+    if {home.%player's uuid%::*} is set:
+        set tab completions for position 1 to the first element of {home.%player's uuid%::*}
+        loop {home.%player's uuid%::*}:
+            add loop-value to tab completions
+
+command listhome: # liste tes homes
+    executable by: players
+    description: Liste des tes points de téléportations.
+    trigger:
+        if {home.%player's uuid%::*} isn't set:
+            send "&4Vous n'avez pas de maisons."
+        else:
+            set {_maisons} to "%{home.%player's uuid%::*}%"
+            replace all "and" with "&7et&3" in {_maisons}
+            replace all "," with "&7,&3" in {_maisons}
+            send "&aListe des tes maisons : &3%{_maisons}%&7."
