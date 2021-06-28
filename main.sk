@@ -422,3 +422,31 @@ command casque:
                 send "&aItem équippé !"
         else:
             send {@errorMessage}
+
+command clear [<player>]:
+    executable by: players
+    description: Clear l'inventaire d'un joueur mais pas l'équipement.
+    trigger:
+        if player is op:
+            set {_player} to player
+            set {_arg1} to arg-1
+            if player is arg-1:
+                delete {_arg1}
+            if arg-1 is set:
+                set {_player} to arg-1
+            set {_helmet} to helmet of {_player}
+            set {_chestplate} to chestplate of {_player}
+            set {_leggings} to leggings of {_player}
+            set {_boots} to boots of {_player}
+            clear {_player}'s inventory
+            set helmet of {_player} to {_helmet}
+            set chestplate of {_player} to {_chestplate}
+            set leggings of {_player} to {_leggings}
+            set boots of {_player} to {_boots}
+            if {_arg1} is set:
+                send "&aTu as clear l'inventaire de %arg-1%&a."
+                send "&aTon inventaire a été clear par %player%&a." to arg-1
+            else:
+                send "&aTu as clear ton inventaire."
+        else:
+            send {@errorMessage}
