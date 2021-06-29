@@ -56,9 +56,10 @@ command clearchat: # supprime l'historique du tchat
     cooldown message: &4Tu dois attendre &l%remaining time% &4pour refaire cette commande !
     trigger:
         if player is op:
+            set {_player} to userOrNick(player)
             loop 98 times:
                 broadcast " " in world of player
-            broadcast "&cLe Chat a été clear par &e%player%&c." in world of player
+            broadcast "&cLe Chat a été clear par &e%{_player}%&c." in world of player
             broadcast " " in world of player
         else:
             cancel command cooldown
@@ -86,7 +87,8 @@ command afk: # annonce d'afk
     executable by: players
     description: Annonce que tu vas afk.
     trigger:
-        broadcast "&a%player's name%&c est désormais afk !" in world of player
+        set {_player} to userOrNick(player)
+        broadcast "&a%{_player}%&c est désormais afk !" in world of player
 
 command gmc [<player>]: # met un joueur en créatif
     executable by: players
@@ -100,7 +102,7 @@ command gmc [<player>]: # met un joueur en créatif
                 send "&4Ce joueur est déjà en créatif."
                 stop
             set gamemode of {_player} to creative
-            send "%player% a changé ton mode de jeu en créatif." to {_player}
+            send "&7%player%&7 a changé ton mode de jeu en créatif." to {_player}
             sendToOperators({_player}, "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en créatif.")
         else:
             send option("errorMessage")
@@ -117,7 +119,7 @@ command gms [<player>]: # met un joueur en spectateur
                 send "&4Ce joueur est déjà en spectateur."
                 stop
             set gamemode of {_player} to spectator
-            send "%player% a changé ton mode de jeu en spectateur." to {_player}
+            send "&7%player%&7 a changé ton mode de jeu en spectateur." to {_player}
             sendToOperators({_player}, "&7&o%player%&7&o a changé le mode de jeu de %{_player}%&7&o en spectateur.")
         else:
             send option("errorMessage")
@@ -128,6 +130,7 @@ command top: # téléporte un joueur tout en haut
     trigger:
         if player is op:
             teleport player to location of highest block at location
+            send "&aTu as été téléporté !"
         else:
             send option("errorMessage")
 
@@ -158,7 +161,8 @@ command killall: # tue toutes les entités sauf exeptions
                     kill loop-entity
                     add 1 to {_count}
             send "Tu as tué %{_count}% entités."
-            sendToOperators(player, "&7%player%&7 as tué %{_count}%&7 entités.")
+            set {_player} to userOrNick(player)
+            sendToOperators(player, "&7%{_player}%&7 as tué %{_count}%&7 entités.")
         else:
             send option("errorMessage")
 
@@ -241,10 +245,7 @@ every 1 second in "world":
         set {_pluriel} to ""
         set {_pluriel} to "s" if {_numberOfConnectedPlayers} > 1
         set tab header to  "&a%{_serverName}%" and footer to "&e%{_numberOfConnectedPlayers}% joueur%{_pluriel}% connecté%{_pluriel}%\n&9%ping of loop-player% ms de latence" for loop-player
-        if {nick.%uuid of loop-player%} is set:
-            set {_player} to "%{nick.%uuid of loop-player%}%&7 (%loop-player%)"
-        else:
-            set {_player} to "%loop-player%"
+        set {_player} to userOrNick(loop-player)
         set tab list name of loop-player to {_player}
 
 command quelbloc: # commande pour activer ou désactiver l'affiche du bloc proche de toi
@@ -301,8 +302,10 @@ command clear [<player>]: # clear l'inventaire du joueur sauf équipement
             set leggings of {_player} to {_leggings}
             set boots of {_player} to {_boots}
             if {_arg1} is set:
-                send "&aTu as clear l'inventaire de %arg-1%&a."
-                send "&aTon inventaire a été clear par %player%&a." to arg-1
+                set {_player} to userOrNick(arg-1)
+                send "&aTu as clear l'inventaire de %{_player}%&a."
+                set {_player} to userOrNick(player)
+                send "&aTon inventaire a été clear par %{_player}%&a." to arg-1
             else:
                 send "&aTu as clear ton inventaire."
         else:
@@ -322,9 +325,30 @@ command clearall [<player>]: # clear tout l'inventaire du joueur
                 set {_player} to arg-1
             clear {_player}'s inventory
             if {_arg1} is set:
-                send "&aTu as clear l'inventaire de %arg-1%&a."
-                send "&aTon inventaire a été clear par %player%&a." to arg-1
+                set {_player} to userOrNick(arg-1)
+                send "&aTu as clear l'inventaire de %{_player}%&a."
+                set {_player} to userOrNick(player)
+                send "&aTon inventaire a été clear par %{_player}%&a." to arg-1
             else:
                 send "&aTu as clear ton inventaire."
         else:
             send option("errorMessage")
+
+command couleur: # info sur les codes couleurs dans minecrafrt
+    executable by: players
+    aliases: couleurs, codecouleur, codecouleurs
+    description: Informations sur le code des couleurs.
+    trigger:
+        send "&lMettre & ou § au début du code pour faire une couleur"
+        send ""
+        send "4 ➡ &4Rouge foncé&r              d ➡ &dViolet"
+        send "c ➡ &cRouge&r                      5 ➡ &5Violet foncé"
+        send "6 ➡ &6Or&r                           f ➡ &fBlanc"
+        send "e ➡ &eJaune&r                      7 ➡ &7Gris"
+        send "2 ➡ &2Vert foncé&r                8 ➡ &8Gris foncé"
+        send "a ➡ &aVert&r                        0 ➡ &0Noir"
+        send "3 ➡ &3Bleu marine&r                l ➡ &lGras"
+        send "1 ➡ &1Bleu foncé&r                o ➡ &oItalique"
+        send "9 ➡ &9Ble&r                          n ➡ &nSouligné"
+        send "k ➡ Glitché (exemple : &ka0\|&r) m ➡ &mBarré"
+        send "b ➡ &bBleu ciel&r                   r ➡ &rRéinitialise la couleur et style"

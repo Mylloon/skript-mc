@@ -26,7 +26,7 @@ function ScriptList(addRemove: text, list: text):
 function userOrNick(player: player) :: text:
     set {_uuid} to uuid of {_player}
     if {nick.%{_uuid}%} is set:
-        set {_res} to {nick.%{_uuid}%}
+        set {_res} to "%{nick.%{_uuid}%}%&7 (%{_player}%)"
     else:
-        set {_res} to name of {_player}
+        set {_res} to "%{_player}%"
     return {_res}
