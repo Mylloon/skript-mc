@@ -46,6 +46,15 @@ command deacoudre [<text>]: # lancement de la partie
         else:
             send "&4Tu n'es pas dans une partie."
 
+function getDifference(arg: text, block: block, comparative: number) :: number:
+    if {_arg} is "x":
+        set {_res} to difference between X-location of {_block} and {_comparative}
+    if {_arg} is "y":
+        set {_res} to difference between Y-location of {_block} and {_comparative}
+    if {_arg} is "z":
+        set {_res} to difference between Z-location of {_block} and {_comparative}
+    return {_res}
+
 every 0.5 second in "world": # pose du bloc et téléporatation
     if {thimble} is not true:
         stop
@@ -53,11 +62,11 @@ every 0.5 second in "world": # pose du bloc et téléporatation
         set action bar of loop-value to "&dEn partie de &lDé à coudre&r&d."
         if block at loop-value is water: # si dans l'eau
             # vérification que c'est l'eau du dé à coudre
-            set {_xLocationBlock1} to difference between X-location of block at loop-value and {@X1}
-            set {_xLocationBlock2} to difference between X-location of block at loop-value and {@X2}
-            set {_zLocationBlock1} to difference between Z-location of block at loop-value and {@Z1}
-            set {_zLocationBlock2} to difference between Z-location of block at loop-value and {@Z2}
-            set {_yLocationBlock} to difference between Y-location of block at loop-value and {@Yeau}
+            set {_xLocationBlock1} to getDifference("x", block at loop-value, {@X1})
+            set {_xLocationBlock2} to getDifference("x", block at loop-value, {@X2})
+            set {_zLocationBlock1} to getDifference("z", block at loop-value, {@Z1})
+            set {_zLocationBlock2} to getDifference("z", block at loop-value, {@Z2})
+            set {_yLocationBlock} to getDifference("y", block at loop-value, {@Yeau})
             if {_xLocationBlock1} and {_xLocationBlock2} and {_zLocationBlock1} and {_zLocationBlock2} <= 0:
                 continue
             if {_xLocationBlock1} and {_xLocationBlock2} >= ({@X1} - {@X2}):
@@ -104,10 +113,16 @@ on death:
             cancel event
             set gamemode of player to spectator
             set {thimble.dead.%uuid of player%} to true
-            set {_finPartie} to true
+            set {_finPartie} to 0
             loop {party.list::*}:
                 if {thimble.dead.%uuid of loop-value%} is false:
-                    set {_finPartie} to false
+                    set {_gagnant} to loop-value
+                    add 1 to {_finPartie}
                 send "&c%player%&b a été éliminé !" to loop-value
-            if {_finPartie} is true:
+            if {_finPartie} is 1 or 0:
+                loop {party.list::*}:
+                    if {_gagnant} is set:
+                        send "&a&l%{_gagnant}%&r&l a gagné la partie !!" to loop-value
+                    else:
+                        send "&cTu était tout seul à jouer... bravo quand même ?" to loop-value
                 execute player command "deacoudre"
