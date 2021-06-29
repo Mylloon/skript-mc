@@ -22,3 +22,11 @@ function ScriptList(addRemove: text, list: text):
         add {_list} to {scripts::*}
     if {_addRemove} is "remove":
         remove {_list} from {scripts::*}
+
+function userOrNick(player: player) :: text:
+    set {_uuid} to uuid of {_player}
+    if {nick.%{_uuid}%} is set:
+        set {_res} to {nick.%{_uuid}%}
+    else:
+        set {_res} to name of {_player}
+    return {_res}

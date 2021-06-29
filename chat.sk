@@ -5,39 +5,42 @@ on unload:
 
 on chat: # chat
     cancel event
-    if {nick.%uuid of player%} is set:
-        set {_player} to {nick.%uuid of player%}
-    else:
-        set {_player} to player's name
+    set {_player} to userOrNick(player)
     broadcast "<%{_player}%&r> %colored message%" in world of player
 
-command nickname [<player>] <text>: # changement de pseudo
+command nickname [<player>] [<text>]: # changement de pseudo
     executable by: players
     aliases: nick
     description: Change ton nom ou celui d'un autre joueur. (max 15 charactères)
     trigger:
-        if player is op:
-            set {_playerUUID} to uuid of player
-            set {_player} to player
-            set {_playerNAME} to player
-            if arg-1 is set:
-                set {_playerUUID} to uuid of arg-1
-                set {_player} to arg-1
-            if player is {_player}:
-                set {_playerNAME} to "vous"
+        set {_playerUUID} to uuid of player
+        set {_player} to player
+        set {_playerNAME} to player
+        if arg-1 is set:
+            set {_playerUUID} to uuid of arg-1
+            set {_player} to arg-1
+        if arg-2 is not set:
+            if {nick.%{_playerUUID}%} is set:
+                set {_deb} to "Le surnom de %{_playerNAME}%"
+                if player is {_player}:
+                    set {_deb} to "Votre surnom"
+                send "%{_deb}% est : %{nick.%{_playerUUID}%}%"
             else:
-                send "&aSurnom changé."
-            if arg-2 is "off":
-                delete {nick.%{_playerUUID}%}
-                send "&6Tu n'as plus de surnom. (changé par %player%&6)" to {_player}
-            else:
-                if length of arg-2 is greater than 15:
-                    send "&4Ce surnom est trop long."
-                else:
-                    set {nick.%{_playerUUID}%} to colored arg-2
-                    send "&6Ton surnom est désormais &r%{nick.%{_playerUUID}%}%&6. (changé par %{_playerNAME}%&6)" to {_player}
+                send "Tu n'as pas de surnom. Nom d'affichage : %{_playerNAME}%"
+            stop
+        if player is {_player}:
+            set {_playerNAME} to "vous"
         else:
-            send option("errorMessage")
+            send "&aSurnom changé."
+        if arg-2 is "off":
+            delete {nick.%{_playerUUID}%}
+            send "&6Tu n'as plus de surnom. (changé par %player%&6)" to {_player}
+        else:
+            if length of arg-2 is greater than 15:
+                send "&4Ce surnom est trop long."
+            else:
+                set {nick.%{_playerUUID}%} to colored arg-2
+                send "&6Ton surnom est désormais &r%{nick.%{_playerUUID}%}%&6. (changé par %{_playerNAME}%&6)" to {_player}
 
 command msg <player> <text>: # DM
     executable by: players

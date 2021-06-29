@@ -78,7 +78,7 @@ command rename <text>: # renomme l'item dans la main du joueur
                 set {_name} to colored arg-1
                 replace all "&" with "§" in {_name}
                 send "&eL'item &r%player's tool%&e est renommé en ""&r%{_name}%&e""."
-                set the name of the player's tool to "§r%{_name}%"
+                set name of the player's tool to "§r%{_name}%"
         else:
             send option("errorMessage")
 
