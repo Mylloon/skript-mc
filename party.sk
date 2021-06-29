@@ -17,8 +17,9 @@ command party [<player>] [<text>]: # commande party
                         send "&cTu es déjà dans la partie."
                         stop
                     set {party.player.%uuid of player%} to true
+                    set {_player} to userOrNick(player)
                     loop {party.list::*}:
-                        send "%player%&a a rejoint la partie." to loop-value
+                        send "%{_player}%&a a rejoint la partie." to loop-value
                     add player to {party.list::*}
                     send "&aTu as rejoint la partie."
                     stop
@@ -32,8 +33,9 @@ command party [<player>] [<text>]: # commande party
                         stop
                     else:
                         delete {party.player.%uuid of player%}
+                        set {_player} to userOrNick(player)
                         loop {party.list::*}:
-                            send "%player%&c a quitté la partie." to loop-value
+                            send "%{_player}%&c a quitté la partie." to loop-value
                         remove player from {party.list::*}
                         send "&cTu as quitté la partie."
                         stop
@@ -43,7 +45,8 @@ command party [<player>] [<text>]: # commande party
             if arg-2 is "create":
                 if player is op:
                     if {party} is set:
-                        send "&4La party est déjà créer par %{party.creator}%&4."
+                        set {_player} to userOrNick({party.creator})
+                        send "&4La party est déjà créer par %{_player}%&4."
                         stop
                     else:
                         set {party.creator} to player
@@ -73,7 +76,8 @@ command party [<player>] [<text>]: # commande party
         if arg-1 is set:
             if {party} is set:
                 send "&aTu as invité &l%arg-1%&r&a."
-                send formatted "<tooltip:&3Clique sur le message pour rejondre la partie.><cmd:/party join>&aVeux tu rejoindre la partie aux côtés de &9%player%&a ?" to arg-1
+                set {_player} to userOrNick(player)
+                send formatted "<tooltip:&3Clique sur le message pour rejondre la partie.><cmd:/party join>&aVeux tu rejoindre la partie aux côtés de &9%{_player}%&a ?" to arg-1
             else:
                 send {@pasDePartie}
         else:
