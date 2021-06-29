@@ -1,8 +1,8 @@
 options:
     X1: 103.5
-    X2: 99.5
-    Yeau: 57.5
     Z1: -312.5
+    Yeau: 57.5
+    X2: 99.5
     Z2: -304.5
 
 on load:
@@ -69,11 +69,11 @@ every 0.5 second in "world": # pose du bloc et téléporatation
             set {_yLocationBlock} to getDifference("y", block at loop-value, {@Yeau})
             if {_xLocationBlock1} and {_xLocationBlock2} and {_zLocationBlock1} and {_zLocationBlock2} <= 0:
                 continue
-            if {_xLocationBlock1} and {_xLocationBlock2} >= ({@X1} - {@X2}):
+            if {_xLocationBlock1} and {_xLocationBlock2} >= abs({@X1} - {@X2}):
                 continue
             if {_yLocationBlock} != 0:
                 continue
-            if {_zLocationBlock1} and {_zLocationBlock2} >= ({@X1} - {@X2}):
+            if {_zLocationBlock1} and {_zLocationBlock2} >= abs({@Z1} - {@Z2}):
                 continue
             
             # vérification si c'est un jump qui est dur à faire (entre 4 blocs pleins)
@@ -91,14 +91,13 @@ every 0.5 second in "world": # pose du bloc et téléporatation
                 set {_niceJump} to false
 
             # pose du bloc (or si jump difficile + message, laine si normal)
+            set block at loop-value to wool
             if {thimble.dead.%uuid of loop-value%} is not set:
                 if {_niceJump} is true:
                     set block at loop-value to gold block
                     set {_player} to userOrNick(loop-value)
                     loop {party.list::*}:
-                        send "&a&l%{_player}%&r&e a fait un beau jump !" to loop-value-2
-                else:
-                    set block at loop-value to wool
+                        send "&a&l%{_player}%&r&e a réalisé un dé à coudre !" to loop-value-2
             else:
                 delete {thimble.dead.%uuid of loop-value%}
             
