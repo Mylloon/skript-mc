@@ -31,9 +31,7 @@ command deacoudre [<text>]: # lancement de la partie
                 delete {thimble}
                 loop {party.list::*}:
                     send "&cPartie de dé à coudre terminée." to loop-value
-                    teleport loop-value to {thimble.location}
                     set gamemode of loop-value to creative
-                execute console command "fill 103 57 -313 99 57 -305 water"
             else:
                 set {thimble} to true
                 loop {party.list::*}:
@@ -43,6 +41,8 @@ command deacoudre [<text>]: # lancement de la partie
                     feed loop-value
                     heal loop-value
                     cure loop-value
+                execute console command "fill 103 57 -313 99 57 -305 water"
+                # execute console command "fill %{@X1}% %{@Yeau}% %{@Z1}% %{@X2}% %{@Yeau}% %{@Z2}% water"
         else:
             send "&4Tu n'es pas dans une partie."
 
