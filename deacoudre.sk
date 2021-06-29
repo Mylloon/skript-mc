@@ -15,14 +15,14 @@ command deacoudre [<text>]: # lancement de la partie
     description: Lance une partie de dé à coudre.
     trigger:
         if arg-1 is set:
-            if player is op:
-                if arg-1 is "spawn":
+            if arg-1 is "spawn":
+                if player is op:
                     set {thimble.location} to location of player
                     send "&aLe dé à coudre téléportes désormais ici."
                     stop
-            else:
-                send option("errorMessage")
-                stop
+                else:
+                    send option("errorMessage")
+                    stop
         if {thimble.location} is not set:
             send "&4Tu n'as pas défini de point de téléportation : &r&l/deacoudre spawn"
             stop
@@ -33,7 +33,7 @@ command deacoudre [<text>]: # lancement de la partie
                     send "&cPartie de dé à coudre terminée." to loop-value
                     teleport loop-value to {thimble.location}
                     set gamemode of loop-value to creative
-                execute player command "fill 103 57 -313 99 57 -305 water"
+                execute console command "fill 103 57 -313 99 57 -305 water"
             else:
                 set {thimble} to true
                 loop {party.list::*}:
