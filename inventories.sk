@@ -1,0 +1,4 @@
+on load:
+    ScriptList("add", script)
+on unload:
+    ScriptList("remove", script)

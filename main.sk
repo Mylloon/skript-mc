@@ -58,9 +58,9 @@ command clearchat: # supprime l'historique du tchat
         if player is op:
             set {_player} to userOrNick(player)
             loop 98 times:
-                broadcast " " in world of player
-            broadcast "&cLe Chat a été clear par &e%{_player}%&c." in world of player
-            broadcast " " in world of player
+                broadcast " " in all worlds
+            broadcast "&cLe Chat a été clear par &e%{_player}%&c." in all worlds
+            broadcast " " in all worlds
         else:
             cancel command cooldown
             send option("errorMessage")
@@ -88,7 +88,7 @@ command afk: # annonce d'afk
     description: Annonce que tu vas afk.
     trigger:
         set {_player} to userOrNick(player)
-        broadcast "&a%{_player}%&c est désormais afk !" in world of player
+        broadcast "&a%{_player}%&c est désormais afk !" in all worlds
 
 command gmc [<player>]: # met un joueur en créatif
     executable by: players
@@ -231,7 +231,7 @@ on server list ping: # motd
     if max players count > {_playerCount}:
         set max players count to (number of all players + 1)
 
-every 1 second in "world":
+every second:
     loop all players:
         # affiche le block proche de toi
         if {blockNear.%uuid of loop-player%} is true:

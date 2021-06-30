@@ -6,7 +6,7 @@ on unload:
 on chat: # chat
     cancel event
     set {_player} to userOrNick(player)
-    broadcast "%{_player}%&r &8➡&r %colored message%" in world of player
+    broadcast "&8[%gamemode of player%&8]&r %{_player}%&r &8➡&r %colored message%" in all worlds
 
 command nickname [<player>] [<text>]: # changement de pseudo
     executable by: players
