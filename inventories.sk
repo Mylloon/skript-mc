@@ -16,7 +16,7 @@ function inventaire(mode: text, player: player, gamemode: text) :: number:
     loop {@tailleInventaire} times:
         set {_item} to slot {_count} of inventory of {_player}
         if {_mode} is "chargement":
-            set slot {_count} of inventory of {_player} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
+            set {_item} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
         else if {_mode} is "sauvegarde":
             set {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} to {_item}
         add 1 to {_count}
