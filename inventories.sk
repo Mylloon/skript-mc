@@ -1,5 +1,5 @@
 options:
-    tailleInventaire: 41 # 37 d'inventaire + 4 d'équipement + 1 seconde main
+    tailleInventaire: 41 # 36 d'inventaire + 4 d'équipement + 1 seconde main
     messagePreChangement: "&7Changement d'inventaire..."
     messagePostChargement: "&7&l%{_n1}%&7 item sauvegardés et &l%{_n2}%&7 chargés."
 
