@@ -1,33 +1,37 @@
 options:
     tailleInventaire: 41 # 37 d'inventaire + 4 d'équipement + 1 seconde main
-    messageChangement: "&7Changement d'inventaire..."
+    messagePreChangement: "&7Changement d'inventaire..."
+    messagePostChargement: "&7&l%{_n1}%&7 item sauvegardés et &l%{_n2}%&7 chargés."
 
 on load:
     ScriptList("add", script)
 on unload:
     ScriptList("remove", script)
 
-function sauvegardeInventaire(player: player, gamemode: text):
+function inventaire(mode: text, player: player, gamemode: text) :: number:
     set {_uuid} to uuid of {_player}
-    set {_count} to 0
+    set {_count} and {_nombreItems} to 0
+    if {_mode} is "chargement":
+        clear inventory of {_player}
     loop {@tailleInventaire} times:
-        set {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} to slot {_count} of inventory of {_player}
+        set {_item} to slot {_count} of inventory of {_player}
+        if {_mode} is "chargement":
+            set slot {_count} of inventory of {_player} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
+        else if {_mode} is "sauvegarde":
+            set {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} to {_item}
         add 1 to {_count}
-
-function chargementInventaire(player: player, gamemode: text):
-    set {_uuid} to uuid of {_player}
-    set {_count} to 0
-    clear inventory of {_player}
-    loop {@tailleInventaire} times:
-        set slot {_count} of inventory of {_player} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
-        add 1 to {_count}
+        if "%{_item}%" is not "<none>" or "air" or "0 air":
+            add 1 to {_nombreItems}
+    return {_nombreItems}
 
 on gamemode change:
     if old gamemode of player is survival:
-        sauvegardeInventaire(player, "%old gamemode of player%")
-        send {@messageChangement}
-        chargementInventaire(player, "creative")
+        set {_n1} to inventaire("sauvegarde", player, "%old gamemode of player%")
+        send {@messagePreChangement}
+        set {_n2} to inventaire("chargement", player, "creative")
+        send {@messagePostChargement}
     else if gamemode of player is survival:
-        sauvegardeInventaire(player, "creative")
-        send {@messageChangement}
-        chargementInventaire(player, "%gamemode of player%")
+        set {_n1} to inventaire("sauvegarde", player, "creative")
+        send {@messagePreChangement}
+        set {_n2} to inventaire("chargement", player, "%gamemode of player%")
+        send {@messagePostChargement}
