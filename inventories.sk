@@ -1,4 +1,32 @@
+options:
+    tailleInventaire: 41 # 36 d'inventaire + 4 d'équipement + 1 seconde main
+
 on load:
     ScriptList("add", script)
 on unload:
     ScriptList("remove", script)
+
+function sauvegardeInventaire(player: player, gamemode: text):
+    set {_uuid} to uuid of {_player}
+    set {_count} to 0
+    loop {@tailleInventaire} times:
+        set {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} to slot {_count} of inventory of {_player}
+        add 1 to {_count}
+
+function chargementInventaire(player: player, gamemode: text):
+    set {_uuid} to uuid of {_player}
+    set {_count} to 0
+    clear inventory of {_player}
+    loop {@tailleInventaire} times:
+        set slot {_count} of inventory of {_player} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
+        add 1 to {_count}
+
+on gamemode change:
+    if old gamemode of player is survival:
+        sauvegardeInventaire(player, "survival")
+        send "&7Changement d'inventaire..."
+        chargementInventaire(player, "creative")
+    else if gamemode of player is survival:
+        sauvegardeInventaire(player, "creative")
+        send "&7Changement d'inventaire..."
+        chargementInventaire(player, "survival")
