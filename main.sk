@@ -242,8 +242,7 @@ every second:
         # tab
         set {_serverName} to option("serverName")
         set {_numberOfConnectedPlayers} to number of all players
-        set {_pluriel} to ""
-        set {_pluriel} to "s" if {_numberOfConnectedPlayers} > 1
+        set {_pluriel} to pluriel({_numberOfConnectedPlayers})
         set tab header to  "&a%{_serverName}%" and footer to "&e%{_numberOfConnectedPlayers}% joueur%{_pluriel}% connecté%{_pluriel}%\n&9%ping of loop-player% ms de latence" for loop-player
         set {_player} to userOrNick(loop-player)
         set tab list name of loop-player to {_player}
@@ -349,6 +348,6 @@ command couleur: # info sur les codes couleurs dans minecrafrt
         send "a ➡ &aVert&r                        0 ➡ &0Noir"
         send "3 ➡ &3Bleu marine&r                l ➡ &lGras"
         send "1 ➡ &1Bleu foncé&r                o ➡ &oItalique"
-        send "9 ➡ &9Ble&r                          n ➡ &nSouligné"
+        send "9 ➡ &9Bleu&r                         n ➡ &nSouligné"
         send "k ➡ Glitché (exemple : &ka0\|&r) m ➡ &mBarré"
         send "b ➡ &bBleu ciel&r                   r ➡ &rRéinitialise la couleur et style"

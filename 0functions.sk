@@ -30,3 +30,8 @@ function userOrNick(player: player) :: text:
     else:
         set {_res} to "%{_player}%"
     return {_res}
+
+function pluriel(int: number) :: text:
+    set {_pluriel} to ""
+    set {_pluriel} to "s" if {_int} > 1
+    return {_pluriel}
