@@ -1,5 +1,6 @@
 options:
-    tailleInventaire: 41 # 36 d'inventaire + 4 d'équipement + 1 seconde main
+    tailleInventaire: 41 # 37 d'inventaire + 4 d'équipement + 1 seconde main
+    messageChangement: "&7Changement d'inventaire..."
 
 on load:
     ScriptList("add", script)
@@ -23,10 +24,10 @@ function chargementInventaire(player: player, gamemode: text):
 
 on gamemode change:
     if old gamemode of player is survival:
-        sauvegardeInventaire(player, "survival")
-        send "&7Changement d'inventaire..."
+        sauvegardeInventaire(player, "%old gamemode of player%")
+        send {@messageChangement}
         chargementInventaire(player, "creative")
     else if gamemode of player is survival:
         sauvegardeInventaire(player, "creative")
-        send "&7Changement d'inventaire..."
-        chargementInventaire(player, "survival")
+        send {@messageChangement}
+        chargementInventaire(player, "%gamemode of player%")
