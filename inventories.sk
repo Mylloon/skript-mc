@@ -1,7 +1,7 @@
 options:
     tailleInventaire: 41 # 36 d'inventaire + 4 d'équipement + 1 seconde main
     messagePreChangement: "&7Changement d'inventaire..."
-    messagePostChargement: "&7&l%{_n1}%&7 objet%{_pluriel1}%&7 unique sauvegardé%{_pluriel1}%&7 et &l%{_n2}%&7 objet%{_pluriel2}%&7 unique chargé%{_pluriel2}%."
+    messagePostChargement: "&7&l%{_n1}%&7 objet%{_pluriel1}%&7 unique%{_pluriel1}%&7 sauvegardé%{_pluriel1}%&7 et &l%{_n2}%&7 objet%{_pluriel2}%&7 unique%{_pluriel2}%&7 chargé%{_pluriel2}%&7."
 
 on load:
     ScriptList("add", script)
