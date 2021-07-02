@@ -30,6 +30,7 @@ command deacoudre [<text>]: # lancement de la partie
             if {thimble} is true:
                 delete {thimble}
                 loop {party.list::*}:
+                    delete {thimble.dead.%uuid of loop-value%}
                     send "&cPartie de dé à coudre terminée." to loop-value
                     set gamemode of loop-value to creative
             else:
