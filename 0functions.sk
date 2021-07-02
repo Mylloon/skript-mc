@@ -39,3 +39,7 @@ function pluriel(int: number) :: text:
 function annonceParty(message: text):
     loop {party.list::*}:
         send {_message} to loop-value
+
+function resetThimble(player: player):
+    set {_uuid} to uuid of {_player}
+    delete {thimble.dead.%{_uuid}%}

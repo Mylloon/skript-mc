@@ -37,6 +37,7 @@ command party [<player>] [<text>]: # commande party
                         loop {party.list::*}:
                             send "%{_player}%&c a quitté la partie." to loop-value
                         remove player from {party.list::*}
+                        resetThimble(player)
                         send "&cTu as quitté la partie."
                         stop
                 else:
