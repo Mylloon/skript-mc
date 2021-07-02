@@ -1,17 +1,12 @@
 options:
     tailleInventaire: 41 # 36 d'inventaire + 4 d'équipement + 1 seconde main
     messagePreChangement: "&7Changement d'inventaire..."
-    messagePostChargement: "&7&l%{_n1}%&7 objet%{_pluriel1}%&7 sauvegardé%{_pluriel1}%&7 et &l%{_n2}%&7 objet%{_pluriel2}%&7 chargé%{_pluriel2}%."
+    messagePostChargement: "&7&l%{_n1}%&7 objet%{_pluriel1}%&7 unique sauvegardé%{_pluriel1}%&7 et &l%{_n2}%&7 objet%{_pluriel2}%&7 unique chargé%{_pluriel2}%."
 
 on load:
     ScriptList("add", script)
 on unload:
     ScriptList("remove", script)
-
-function isItem(item: text) :: boolean:
-    if "%{_item}%" is "<none>" or "air" or "0 air": # air quand inventaire vide, 0 air quand main gauche vide et <none> quand équipement vide
-        return false
-    return true
 
 function inventaire(mode: text, player: player, gamemode: text) :: number:
     set {_uuid} to uuid of {_player}
@@ -20,16 +15,14 @@ function inventaire(mode: text, player: player, gamemode: text) :: number:
         clear inventory of {_player}
     loop {@tailleInventaire} times:
         if {_mode} is "chargement":
-            set {_item} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
-            set slot {_count} of inventory of {_player} to {_item}
-            if isItem("%{_item}%") is true:
-                add 1 to {_nombreItems}
+            set {_item} to {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} # récupération item
+            set slot {_count} of inventory of {_player} to {_item} # enrengistrement item
         else if {_mode} is "sauvegarde":
-            delete {inv.%{_uuid}%.%{_gamemode}%::%{_count}%}
+            delete {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} # suppression de l'ancienne donnée
             set {_item} to slot {_count} of inventory of {_player}
             set {inv.%{_uuid}%.%{_gamemode}%::%{_count}%} to {_item}
-            if isItem("%{_item}%") is true:
-                add 1 to {_nombreItems}
+        if "%{_item}%" is not "<none>" or "air" or "0 air": # air quand inventaire vide, 0 air quand main gauche vide et <none> quand équipement vide
+            add 1 to {_nombreItems}
         add 1 to {_count}
     return {_nombreItems}
 
