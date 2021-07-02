@@ -188,12 +188,14 @@ on first join: # premiere fois que le joueur rejoint le serveur
     set join message to "&aC'est la première fois que l'on te vois &r%player%, &abienvenue !"
 
 on join: # joueur rejoint le serveur
-    set join message to "%player% &aa rejoint le serveur !"
+    set {_player} to userOrNick(player)
+    set join message to "%{_player}% &aa rejoint le serveur !"
     if {playerIP.%ip of player%} is not false:
         set {playerIP.%ip of player%} to player
 
 on quit:
-    set quit message to "%player% &ca quitté le serveur !" # joueur quitte le serveur
+    set {_player} to userOrNick(player)
+    set quit message to "%{_player}% &ca quitté le serveur !" # joueur quitte le serveur
     delete {dmReply.%uuid of player%} # suppression de la réponse
 
 command ip [<text>]: # information sur ip stocké
