@@ -35,3 +35,7 @@ function pluriel(int: number) :: text:
     set {_pluriel} to ""
     set {_pluriel} to "s" if {_int} > 1
     return {_pluriel}
+
+function annonceParty(message: text):
+    loop {party.list::*}:
+        send {_message} to loop-value

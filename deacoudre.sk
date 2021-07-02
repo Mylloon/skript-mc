@@ -96,8 +96,7 @@ every 0.5 second in "world": # pose du bloc et téléporatation
                 if {_niceJump} is true:
                     set block at loop-value to gold block
                     set {_player} to userOrNick(loop-value)
-                    loop {party.list::*}:
-                        send "&a&l%{_player}%&r&e a réalisé un dé à coudre !" to loop-value-2
+                    annonceParty("&a&l%{_player}%&r&e a réalisé un dé à coudre !")
             else:
                 delete {thimble.dead.%uuid of loop-value%}
             
@@ -119,7 +118,7 @@ on death:
                     add 1 to {_finPartie}
                 else:
                     set {_player} to userOrNick(loop-value)
-                    send "&c%{_player}%&b a été éliminé !" to loop-value
+                    annonceParty("&c%{_player}%&b a été éliminé !")
             if {_finPartie} is 1 or 0:
                 loop {party.list::*}:
                     if {_gagnant} is set:
